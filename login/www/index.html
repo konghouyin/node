@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>登录注册</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        .thing{
+            position:absolute;
+            width:400px;
+            height:230px;
+            left:50%;
+            top:20%;
+            margin-left:-200px;
+            border:2px solid #249f37;
+            box-sizing:border-box;
+            padding:30px;
+        }
+        .thing .user,
+        .thing .pass{
+            margin:13px auto;
+            width:250px;
+            font-size:20px;
+        }
+        .thing div input{
+            height:20px;
+        }
+        #login,#reg{
+            width:65px;
+            height:35px;
+            font-size:18px;
+            margin:25px 45px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="thing">
+        <form action="" method="get">
+            <div class="user">
+                <span>用户名&nbsp;</span>
+                <input type="text" name="user" value="" />
+            </div>
+            <div class="pass">
+                <span>密码&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <input type="password" name="pass" value="" />
+            </div>
+                <input type="button"  id="login" value="登录" />
+                <input type="button" id="reg" value="注册" />
+        </form>
+    </div>
+    <script src="./Ajax.js"></script>
+    <script src="./index.js"></script>
+</body>
+</html>
