@@ -1,4 +1,4 @@
-/*
+﻿/*
 ajax({
     url: "", //请求地址
     type: 'get',   //请求方式
@@ -54,4 +54,3 @@ reg.onclick = function () {
         fail: wrong,
     })
 }
-
