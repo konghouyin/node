@@ -32,6 +32,7 @@ var wrong = function(err) {
 login.onclick = function() {
 	var name = document.getElementsByClassName("user")[0].children[1].value;
 	var pass = document.getElementsByClassName("pass")[0].children[1].value;
+	flag = 1;
 	Ajax({
 		url: "http://localhost:8081/login",
 		type: "post",
@@ -46,7 +47,13 @@ login.onclick = function() {
 }
 
 yz.onclick = function(){
+	var exp = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
 	var add = document.getElementById('maile').value;
+	if(!exp.test(add)){
+		alert('邮箱格式不对！');
+		return;
+	}
+	flag = 1;
 	Ajax({
 		url: "http://localhost:8081/maile",
 		type: "post",
@@ -67,10 +74,11 @@ reg.onclick = function() {
 		alert("用户名过短");
 		return;
 	}
-	if (flag == 0) {
-		alert("先进行邮箱验证");
+	if(pass.length<6){
+		alert("密码过短");
 		return;
 	}
+	flag = 1;
 	Ajax({
 		url: "http://localhost:8081/reg",
 		type: "post",

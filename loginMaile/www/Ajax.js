@@ -14,6 +14,7 @@ ajax({
 
 function Ajax(object) {
     xhr = new XMLHttpRequest();
+	xhr.withCredentials = true;//携带cookie
     var message = getParmer(object.data);
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {

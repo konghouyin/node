@@ -1,0 +1,184 @@
+var mysql = require('mysql');
+var querystring = require('querystring');
+var cookiep = require('cookie-parser');
+var cookies = require('cookie-session');
+var express = require('express');
+
+var server = express();
+ var pool = mysql.createPool({host:'localhost',user:'root',port:3306,password:'3832414122',database:'login'});
+
+server.use(cookiep('asdadas'));
+var arr = [];
+for(var i=0;i<10000;i++){
+	arr.push(Math.random()*9999999+"asdasd");
+}
+server.use(cookies({
+	name:'sess',
+	keys:arr,
+	maxAge:1000*60*5,
+}))
+
+
+
+server.all('*', function(req, res, next) {
+	console.log(req.headers);
+    res.header("Access-Control-Allow-Origin", 'http://127.0.0.1:8848'); //需要显示设置来源
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+    res.header("Access-Control-Allow-Credentials",true); //带cookies7     res.header("Content-Type", "application/json;charset=utf-8");
+    next();
+});
+
+server.use('/p.html',function(req,res){
+	console.log('asd');
+	res.writeHead(302, {'Location': 'http://127.0.0.1:8848/try/www/index.html'});
+	res.end();
+})
+
+server.use('/login',function(req,res){
+	var obj = {};
+	var message = '';
+	req.on('data',function(data){
+		message+=data;
+	})
+	req.on('end',function(){
+		obj = querystring.parse(message);
+		passRepeate(obj,res)
+	})
+})
+//注册信息
+
+server.use('/maile',function(req,res){
+	var obj = {};
+	var message = '';
+	req.session['yzm'] = ""+parseInt(Math.random()*9.9999)+parseInt(Math.random()*9.9999)+parseInt(Math.random()*9.9999)+parseInt(Math.random()*9.9999)+parseInt(Math.random()*9.9999)+parseInt(Math.random()*9.9999);
+	req.on('data',function(data){
+		message+=data;
+	})
+	req.on('end',function(){
+		obj = querystring.parse(message);
+		console.log(obj);
+		req.session.maile = obj.address;
+		res.write(JSON.stringify({msg:"邮件已发送！"}));
+		mailepass(obj.address,req.session.yzm);//发送邮件
+		res.end();
+	})
+	
+})
+//邮箱验证
+
+server.use('/reg',function(req,res){
+	if(req.session.yzm){
+		var message = "";
+		req.on('data',function(data){
+			message+=data;
+		})
+		req.on('end',function(){
+			obj = querystring.parse(message);
+ 			if(obj.ans != req.session.yzm){
+ 				res.write(JSON.stringify({msg:"验证码错误，请再次验证！"}));
+ 				res.end();
+ 			}else{
+				obj.maile = req.session.maile;
+				findRepeate(obj,res)
+				delete req.session;//清除session
+			 }
+		})
+ 	}else{
+ 		res.write(JSON.stringify({msg:"请先验证邮箱！"}));
+ 		res.end();
+ 	}
+	
+	
+	console.log(req.session);
+})
+//注册
+
+server.listen(8081);
+
+const nodemailer = require('nodemailer');
+
+function mailepass(add,num){
+	console.log(add);
+	let transporter = nodemailer.createTransport({
+		host: 'smtp.qq.com',
+		port: 465,
+		secure: true, // true for 465, false for other ports
+		auth: {
+			user: "1360234119@qq.com", // generated ethereal user
+			pass: 'hgxjirbvirzpbadb' // generated ethereal password
+		}
+	});
+	
+	let mailOptions = {
+		from: {
+			name: 'haha',
+			address: '1360234119@qq.com'
+		}, 
+		to: add, // list of receivers
+		subject: '移动应用开发实验室--验证码', // Subject line
+		text: '[移动应用开发实验室]欢迎报名移动应用开发实验室2019年纳新，验证码：'+num, // plain text body
+		html: '', // html body
+		}
+	
+	transporter.sendMail(mailOptions, (error, info) => {
+		if (error) {
+			return console.log(error);
+		}
+		console.log("邮件发送成功----->\n"+info);
+	});
+}
+
+function findRepeate(obj,res){
+	console.log(obj);
+	pool.getConnection(function(err, connection){
+	  connection.query( "SELECT `name` FROM `user_message`",  function(err, data){
+	      if(err)    {
+	          throw err;
+	      }else{
+	          for(each in data){
+				  if(data[each].name == obj.name){
+					  connection.release();
+					  res.write(JSON.stringify({msg:"用户名重复！"}));
+					  res.end();
+					  return;
+				  }
+			  }
+	      }
+		  console.log("INSERT INTO `user_message` (`ID`,`name`,`pass`,`maile`) VALUES(0,'"+obj.name+"','"+obj.pass+"','"+obj.maile+"')");
+		  connection.query("INSERT INTO `user_message` (`ID`,`name`,`pass`,`maile`) VALUES(0,'"+obj.name+"','"+obj.pass+"','"+obj.maile+"')");
+		  connection.release();
+		  res.write(JSON.stringify({msg:"注册成功！"}));
+		  res.end();
+	  });
+	});
+}
+
+function passRepeate(obj,res){
+	console.log(obj);
+	pool.getConnection(function(err, connection){
+		connection.query( "SELECT * FROM `user_message` WHERE name='"+obj.name+"'",  function(err, data){
+			if(err){
+				throw err;
+			}else{
+				if(data.length==0){
+					connection.release();
+					res.write(JSON.stringify({msg:"用户名或密码有误！"}));
+					res.end();
+					return;
+				}
+				if(data[0].pass == obj.pass){
+					connection.release();
+					res.write(JSON.stringify({msg:"登录成功！"}));
+					res.end();
+					return;
+				}
+				else{
+					connection.release();
+					res.write(JSON.stringify({msg:"用户名或密码有误！"}));
+					res.end();
+				}
+			}
+		});
+	});
+}
