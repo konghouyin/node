@@ -21,7 +21,7 @@ server.use(cookies({
 
 
 server.all('*', function(req, res, next) {
-	console.log(req.headers);
+	// console.log(req.headers);
     res.header("Access-Control-Allow-Origin", 'http://127.0.0.1:8848'); //需要显示设置来源
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
@@ -46,22 +46,18 @@ server.use('/login',function(req,res){
 		passRepeate(obj,res)
 	})
 })
-//注册信息
+//登录
 
 server.use('/maile',function(req,res){
 	var obj = {};
 	var message = '';
-	req.session['yzm'] = ""+parseInt(Math.random()*9.9999)+parseInt(Math.random()*9.9999)+parseInt(Math.random()*9.9999)+parseInt(Math.random()*9.9999)+parseInt(Math.random()*9.9999)+parseInt(Math.random()*9.9999);
 	req.on('data',function(data){
 		message+=data;
 	})
 	req.on('end',function(){
 		obj = querystring.parse(message);
 		console.log(obj);
-		req.session.maile = obj.address;
-		res.write(JSON.stringify({msg:"邮件已发送！"}));
-		mailepass(obj.address,req.session.yzm);//发送邮件
-		res.end();
+		maileRepeate(obj.address,req,res);
 	})
 	
 })
@@ -80,8 +76,7 @@ server.use('/reg',function(req,res){
  				res.end();
  			}else{
 				obj.maile = req.session.maile;
-				findRepeate(obj,res)
-				delete req.session;//清除session
+				findRepeate(obj,req,res);
 			 }
 		})
  	}else{
@@ -117,7 +112,7 @@ function mailepass(add,num){
 		}, 
 		to: add, // list of receivers
 		subject: '移动应用开发实验室--验证码', // Subject line
-		text: '[移动应用开发实验室]欢迎报名移动应用开发实验室2019年纳新，验证码：'+num, // plain text body
+		text: '[移动应用开发实验室]欢迎报名移动应用开发实验室2019年纳新，请在页面输入验证码，验证码有效期5分钟，验证码：'+num, // plain text body
 		html: '', // html body
 		}
 	
@@ -129,7 +124,7 @@ function mailepass(add,num){
 	});
 }
 
-function findRepeate(obj,res){
+function findRepeate(obj,req,res){
 	console.log(obj);
 	pool.getConnection(function(err, connection){
 	  connection.query( "SELECT `name` FROM `user_message`",  function(err, data){
@@ -148,6 +143,7 @@ function findRepeate(obj,res){
 		  console.log("INSERT INTO `user_message` (`ID`,`name`,`pass`,`maile`) VALUES(0,'"+obj.name+"','"+obj.pass+"','"+obj.maile+"')");
 		  connection.query("INSERT INTO `user_message` (`ID`,`name`,`pass`,`maile`) VALUES(0,'"+obj.name+"','"+obj.pass+"','"+obj.maile+"')");
 		  connection.release();
+		  req.session = null;//清除session
 		  res.write(JSON.stringify({msg:"注册成功！"}));
 		  res.end();
 	  });
@@ -176,6 +172,33 @@ function passRepeate(obj,res){
 				else{
 					connection.release();
 					res.write(JSON.stringify({msg:"用户名或密码有误！"}));
+					res.end();
+				}
+			}
+		});
+	});
+}
+
+
+function maileRepeate(add,req,res){
+	pool.getConnection(function(err, connection){
+		connection.query( "SELECT * FROM `user_message` WHERE maile='"+add+"'",  function(err, data){
+			if(err){
+				throw err;
+			}else{
+				if(data.length==0){
+					connection.release();
+					req.session.maile = add;
+					req.session['yzm'] = ""+parseInt(Math.random()*9.9999)+parseInt(Math.random()*9.9999)+parseInt(Math.random()*9.9999)+parseInt(Math.random()*9.9999)+parseInt(Math.random()*9.9999)+parseInt(Math.random()*9.9999);
+					res.write(JSON.stringify({msg:"邮件已发送！"}));
+					mailepass(add,req.session.yzm);//发送邮件
+					res.end();
+
+					return;
+				}
+				else{
+					connection.release();
+					res.write(JSON.stringify({msg:"邮箱已注册！"}));
 					res.end();
 				}
 			}

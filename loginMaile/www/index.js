@@ -38,7 +38,7 @@ login.onclick = function() {
 		type: "post",
 		data: {
 			"name": name,
-			"pass": pass
+			"pass": hex_md5(pass)
 		},
 		async: true,
 		success: cheng,
@@ -84,7 +84,7 @@ reg.onclick = function() {
 		type: "post",
 		data: {
 			"name": name,
-			"pass": pass,
+			"pass": hex_md5(pass),
 			"ans":ans
 		},
 		async: true,
