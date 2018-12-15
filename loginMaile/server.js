@@ -3,6 +3,9 @@ var querystring = require('querystring');
 var cookiep = require('cookie-parser');
 var cookies = require('cookie-session');
 var express = require('express');
+var svgCaptcha = require('svg-captcha');
+
+
 
 var server = express();
  var pool = mysql.createPool({host:'localhost',user:'root',port:3306,password:'3832414122',database:'login'});
@@ -35,6 +38,7 @@ server.use('/p.html',function(req,res){
 	res.end();
 })
 
+
 server.use('/login',function(req,res){
 	var obj = {};
 	var message = '';
@@ -48,7 +52,32 @@ server.use('/login',function(req,res){
 })
 //登录
 
+
 server.use('/maile',function(req,res){
+	var obj = {};
+	var message = '';
+	req.on('data',function(data){
+		message+=data;
+	})
+	req.on('end',function(){
+		obj = querystring.parse(message);
+		console.log(obj);
+		console.log(req.session);
+		if(obj.tpyzm.toLocaleLowerCase() != req.session.tpyzm){
+			res.write(JSON.stringify({msg:"图片验证码错误，请再次验证！",style:0}));
+			res.end();
+		}else{
+			req.session['yzm'] = ""+parseInt(Math.random()*9.9999)+parseInt(Math.random()*9.9999)+parseInt(Math.random()*9.9999)+parseInt(Math.random()*9.9999)+parseInt(Math.random()*9.9999)+parseInt(Math.random()*9.9999);
+			res.write(JSON.stringify({msg:"邮件已发送！",style:1}));
+			mailepass(req.session.add,req.session.yzm);//发送邮件
+			res.end();
+		}
+	})
+	
+})
+//邮箱验证
+
+server.use('/tpyzm',function(req,res){
 	var obj = {};
 	var message = '';
 	req.on('data',function(data){
@@ -59,9 +88,8 @@ server.use('/maile',function(req,res){
 		console.log(obj);
 		maileRepeate(obj.address,req,res);
 	})
-	
 })
-//邮箱验证
+//图片验证码
 
 server.use('/reg',function(req,res){
 	if(req.session.yzm){
@@ -72,7 +100,7 @@ server.use('/reg',function(req,res){
 		req.on('end',function(){
 			obj = querystring.parse(message);
  			if(obj.ans != req.session.yzm){
- 				res.write(JSON.stringify({msg:"验证码错误，请再次验证！"}));
+ 				res.write(JSON.stringify({msg:"邮箱验证码错误，请再次验证！"}));
  				res.end();
  			}else{
 				obj.maile = req.session.maile;
@@ -91,8 +119,8 @@ server.use('/reg',function(req,res){
 
 server.listen(8081);
 
-const nodemailer = require('nodemailer');
 
+const nodemailer = require('nodemailer');
 function mailepass(add,num){
 	console.log(add);
 	let transporter = nodemailer.createTransport({
@@ -107,7 +135,7 @@ function mailepass(add,num){
 	
 	let mailOptions = {
 		from: {
-			name: 'haha',
+			name: 'XiYouMobile',
 			address: '1360234119@qq.com'
 		}, 
 		to: add, // list of receivers
@@ -179,7 +207,6 @@ function passRepeate(obj,res){
 	});
 }
 
-
 function maileRepeate(add,req,res){
 	pool.getConnection(function(err, connection){
 		connection.query( "SELECT * FROM `user_message` WHERE maile='"+add+"'",  function(err, data){
@@ -188,20 +215,35 @@ function maileRepeate(add,req,res){
 			}else{
 				if(data.length==0){
 					connection.release();
-					req.session.maile = add;
-					req.session['yzm'] = ""+parseInt(Math.random()*9.9999)+parseInt(Math.random()*9.9999)+parseInt(Math.random()*9.9999)+parseInt(Math.random()*9.9999)+parseInt(Math.random()*9.9999)+parseInt(Math.random()*9.9999);
-					res.write(JSON.stringify({msg:"邮件已发送！"}));
-					mailepass(add,req.session.yzm);//发送邮件
-					res.end();
-
-					return;
+					req.session.add = add;
+					canvas(req,res);
 				}
 				else{
 					connection.release();
-					res.write(JSON.stringify({msg:"邮箱已注册！"}));
+					res.write(JSON.stringify({msg:"邮箱已注册！"},style=0));
 					res.end();
 				}
 			}
 		});
 	});
+}
+
+function canvas(req,res){
+	var codeConfig = {
+        size: 4,// 验证码长度
+        ignoreChars: '0o1il', // 验证码字符中排除 0o1i
+        noise: 2, // 干扰线条的数量
+		width:100,
+		viewwidth:150,
+        height: 28,
+		viewheight:40,
+    }
+    var captcha = svgCaptcha.create(codeConfig);
+    req.session.tpyzm = captcha.text.toLowerCase(); //存session用于验证接口获取文字码
+    var codeData = {
+        img:captcha.data,
+		style:1,
+    }
+    res.send(codeData);
+	res.end();
 }
