@@ -63,7 +63,10 @@ server.use('/maile',function(req,res){
 		obj = querystring.parse(message);
 		console.log(obj);
 		console.log(req.session);
-		if(obj.tpyzm.toLocaleLowerCase() != req.session.tpyzm){
+		if(req.session.tpyzm == undefined){
+			res.write(JSON.stringify({msg:"图片验证码已过期，请重新验证！",style:1}));
+			res.end();
+		}else	if(obj.tpyzm.toLocaleLowerCase() != req.session.tpyzm){
 			res.write(JSON.stringify({msg:"图片验证码错误，请再次验证！",style:0}));
 			res.end();
 		}else{
@@ -103,12 +106,12 @@ server.use('/reg',function(req,res){
  				res.write(JSON.stringify({msg:"邮箱验证码错误，请再次验证！"}));
  				res.end();
  			}else{
-				obj.maile = req.session.maile;
+				obj.maile = req.session.add;
 				findRepeate(obj,req,res);
 			 }
 		})
  	}else{
- 		res.write(JSON.stringify({msg:"请先验证邮箱！"}));
+ 		res.write(JSON.stringify({msg:"未验证邮箱或邮箱验证码过期！请验证邮箱"}));
  		res.end();
  	}
 	
