@@ -4,13 +4,13 @@ var cookiep = require('cookie-parser');
 var cookies = require('cookie-session');
 var express = require('express');
 var svgCaptcha = require('svg-captcha');
-
+var crypto = require('crypto');
 
 
 var server = express();
  var pool = mysql.createPool({host:'localhost',user:'root',port:3306,password:'3832414122',database:'login'});
 
-server.use(cookiep('asdadas'));
+server.use(cookiep('sign'));//为cookie添加签名，防篡改
 var arr = [];
 for(var i=0;i<10000;i++){
 	arr.push(Math.random()*9999999+"asdasd");
@@ -20,7 +20,6 @@ server.use(cookies({
 	keys:arr,
 	maxAge:1000*60*5,
 }))
-
 
 
 server.all('*', function(req, res, next) {
@@ -37,7 +36,6 @@ server.use('/p.html',function(req,res){
 	res.writeHead(302, {'Location': 'http://127.0.0.1:8848/try/www/index.html'});
 	res.end();
 })
-
 
 server.use('/login',function(req,res){
 	var obj = {};
@@ -181,34 +179,7 @@ function findRepeate(obj,req,res){
 	});
 }
 
-function passRepeate(obj,res){
-	console.log(obj);
-	pool.getConnection(function(err, connection){
-		connection.query( "SELECT * FROM `user_message` WHERE name='"+obj.name+"'",  function(err, data){
-			if(err){
-				throw err;
-			}else{
-				if(data.length==0){
-					connection.release();
-					res.write(JSON.stringify({msg:"用户名或密码有误！"}));
-					res.end();
-					return;
-				}
-				if(data[0].pass == obj.pass){
-					connection.release();
-					res.write(JSON.stringify({msg:"登录成功！"}));
-					res.end();
-					return;
-				}
-				else{
-					connection.release();
-					res.write(JSON.stringify({msg:"用户名或密码有误！"}));
-					res.end();
-				}
-			}
-		});
-	});
-}
+
 
 function maileRepeate(add,req,res){
 	pool.getConnection(function(err, connection){
@@ -249,4 +220,43 @@ function canvas(req,res){
     }
     res.send(codeData);
 	res.end();
+}
+
+function passRepeate(obj,res){
+	console.log(obj);
+	pool.getConnection(function(err, connection){
+		connection.query( "SELECT * FROM `user_message` WHERE name='"+obj.name+"'",  function(err, data){
+			if(err){
+				throw err;
+			}else{
+				if(data.length==0){
+					connection.release();
+					res.write(JSON.stringify({msg:"用户名或密码有误！",style:0}));
+					res.end();
+					return;
+				}
+				if(data[0].pass == obj.pass){
+					connection.release();
+					var cookieSend = ""+obj.name+"~"+obj.pass+"~"+new Date().getTime();//保存cookie验证，防止跨站session失效
+					
+					var str = JSON.stringify(cookieSend); //明文
+					var secret = 'niyidingjiebuchulai'; //密钥--可以随便写
+					var cipher = crypto.createCipher('aes192', secret);
+					var enc = cipher.update(str, 'utf8', 'hex'); //编码方式从utf-8转为hex;
+					enc += cipher.final('hex'); //编码方式从转为hex;
+					console.log(cookieSend+"--->"+enc)//输出加密后结果
+					
+					res.cookie('pbl',enc,{path:'/',maxAge:8*1000,signed:true});
+					res.write(JSON.stringify({msg:"登录成功！",style:1,url:"http://127.0.0.1:8848/try/www/login.html"}));
+					res.end();
+					return;
+				}
+				else{
+					connection.release();
+					res.write(JSON.stringify({msg:"用户名或密码有误！",style:0}));
+					res.end();
+				}
+			}
+		});
+	});
 }

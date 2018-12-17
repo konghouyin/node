@@ -18,7 +18,7 @@ var yz = document.getElementById('yz');
 var tpyzm = document.getElementById('ok');
 var yzm = document.getElementsByClassName('yzmshow')[0];
 
-var flag = 0; //验证邮箱是否限制
+var flag = 0; //验证ajax是否限制
 
 var cheng = function(text, xml) {
 	var messageBack = JSON.parse(text);
@@ -43,7 +43,14 @@ login.onclick = function() {
 			"pass": hex_md5(pass)
 		},
 		async: true,
-		success: cheng,
+		success: function(text){
+			var messageBack = JSON.parse(text);
+			alert(messageBack.msg);
+			flag = 0;
+			if(messageBack.style==1){
+				window.location.href = messageBack.url;
+			}
+		},
 		fail: wrong,
 	})
 }
