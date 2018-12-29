@@ -51,6 +51,8 @@
 	</body>
 	<script src="src/Mapmove.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
-		MapMove(1100, 800, 0.1, 4, "map", "content"); //参数:地图宽度,地图高度,缩放速率,最大缩放倍率，地图名,控件名
+		var map = new Map("wrap","map", "content");//遮罩名，地图名,控件名
+		map.scale(1100, 800, 0.1, 4); //地图宽度,地图高度,缩放速率,最大缩放倍率
+		//map.close();
 	</script>
 </html>
