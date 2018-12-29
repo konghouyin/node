@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>西邮校园导航</title>
+		<link rel="icon" href="./src/pic/index.ico" type="image/x-icon">
+		<link rel="stylesheet" type="text/css" href="src/reset.css"/>
+		<style>
+			.map{
+				width:1100px;
+				height:800px;
+				background-image: url(src/pic/下载1.png);
+				background-size: 100%;
+				background-repeat: no-repeat;
+				transform: scale(1,1);
+				top:0px;
+				left:0px;
+				position: relative;
+			}
+			.blue{
+				width:20px;
+				height:20px;
+				border-radius: 10px;
+				background-color: lightblue;
+				position: absolute;
+				top:330px;
+				left:265px;
+			}
+			.blue:hover{
+				cursor:pointer;
+			}
+			.wrap{
+				width:1100px;
+				height:800px;
+				overflow: hidden;
+				border:5px solid black;
+			}
+			.wrap:hover{
+				cursor: move;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrap">
+			<div class="map" style="left:0;top:0">
+				<div class="blue content"></div>
+				<div class="blue content" style="top:400px;left:524px;background-color:#f40"></div>
+				<div class="blue content" style="top:200px;left:424px;background-color:#330"></div>
+			</div>
+		</div>
+	</body>
+	<script src="src/Mapmove.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		MapMove(1100, 800, 0.1, 4, "map", "content"); //参数:地图宽度,地图高度,缩放速率,最大缩放倍率，地图名,控件名
+	</script>
+</html>
