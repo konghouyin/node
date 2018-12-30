@@ -1,0 +1,248 @@
+body {
+	background-color: #dfdfdf;
+	min-width: 1400px;
+}
+
+.right {
+	width: 400px;
+	margin-right: 70px;
+	margin-top: 40px;
+	float: right;
+	box-shadow: 3px 4px 10px rgba(0, 0, 0, .25);
+}
+
+.search {
+	box-sizing: border-box;
+	width: 400px;
+	height: 43px;
+	background-color: #fff;
+}
+
+.right .searchPoint {
+	font-size: 18px;
+	height: 40px;
+	width: 320px;
+	margin: 0 10px;
+	outline: none;
+	border: none;
+	vertical-align: top;
+}
+
+.right .line {
+	font-size: 25px;
+	color: #ddd;
+	line-height: 37px;
+	vertical-align: top;
+}
+
+.right .shape {
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	background-image: url(pic/shapeall.png);
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	background-size: 60px;
+	vertical-align: top;
+}
+
+.right .name {
+	background-color: #3385FF;
+	overflow: hidden;
+}
+
+.right .button_path {
+	float: right;
+	width: 115px;
+}
+
+.right .button_from::before,
+.right .button_to::before {
+	content: "";
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	top:0;
+	left:3px;
+	background-image: url(pic/from_go.png);
+	position: absolute;
+	background-position: 0 0;
+}
+.right .button_from::before {
+	background-position: -30px 0;
+}
+
+
+.right .button_from:hover,
+.right .button_to:hover{
+	background-color: #fff;
+	color: #3385FF;
+	cursor: pointer;
+}
+
+.right .button_to:hover::before{
+	background-position: -46px 0;
+}
+.right .button_from:hover::before{
+	background-position: -16px 0;
+}
+
+.right .button_from,
+.right .button_to {
+	height: 30px;
+	border-radius: 15px;
+	border: 1px solid #fff;
+	margin: 14px 7px;
+	line-height: 31px;
+	padding-left: 36px;
+	font-size: 12px;
+	color: #fff;
+	position: relative;
+}
+
+
+.right .thing{
+	margin-right:120px ;
+}
+#name{
+	font-size: 24px;
+	color: #fff;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis; 
+	box-sizing: border-box;
+	padding: 15px 10px;
+}
+.right .thing .type{
+	font-size: 18px;
+	color: #fff;
+	padding: 15px;
+}
+.right .img,
+.right .discuss,
+.right .text{
+	overflow: hidden;
+	box-sizing: border-box;
+	padding: 15px;
+	background-color: #fff;
+	border-bottom: 2px solid #666;
+}
+.right .tittle{
+	font-size: 20px;
+	font-weight: bolder;
+	padding: 10px;
+	border-bottom: 1px solid #ccc;
+}
+#message{
+	font-size: 18px;
+	padding: 10px;
+	line-height: 22px;
+}
+
+.right .img img{
+	float:left;
+	width:100px;
+	height:70px;
+	margin:10px;
+	background-color: #CCCCCC;
+}
+
+.right .img img:hover{
+	cursor: pointer;
+}
+
+
+
+.right .discuss{
+	border:0;
+}
+
+.discuss .message{
+	box-sizing: border-box;
+	border-bottom: 1px solid #ccc;
+	padding: 15px;
+}
+.discuss .message .name{
+	font-size: 16px;
+	background-color: #fff;
+	float:left;
+	color: #aaa;
+}
+.discuss .message .time{
+	text-align: right;
+	font-size: 16px;
+	color: #aaa;
+}
+.discuss_thing .thing{
+	line-height: 22px;
+	padding: 10px 10px 0 10px;
+	font-size: 18px;
+	margin-right: 0;
+}
+
+
+.oo{
+	max-height: 500px;
+	overflow-y: scroll;
+}
+.oo::-webkit-scrollbar {/*滚动条整体样式*/
+        width: 8px;     /*高宽分别对应横竖滚动条的尺寸*/
+        height: 10px;
+    }
+.oo::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+        border-radius: 10px;
+         -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+        background: rgb(200,200,200);
+    }
+.oo::-webkit-scrollbar-track {/*滚动条里面轨道*/
+        -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+        border-radius: 10px;
+        background: #EDEDED;
+    }
+
+.map {
+	width: 1100px;
+	height: 800px;
+	background-image: url(pic/map.png);
+	background-size: 100%;
+	background-repeat: no-repeat;
+	transform: scale(1, 1);
+	top: 0px;
+	left: 0px;
+	position: relative;
+}
+
+.map .point{
+	width:100px;
+	text-align: center;
+}
+.green{
+	position: relative;
+}
+.green::before {
+	content: "";
+	display: block;
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	border-radius: 10px;
+	background-color: #02ff02;
+	top: -25px;
+	left: 35px;
+}
+
+.blue:hover {
+	cursor: pointer;
+}
+
+.wrap {
+	margin: 10px auto;
+	width: 1100px;
+	height: 800px;
+	overflow: hidden;
+	border: 5px solid #aaa;
+}
+
+.wrap:hover {
+	cursor: move;
+}

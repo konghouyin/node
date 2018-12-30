@@ -4,55 +4,49 @@
 		<meta charset="utf-8">
 		<title>西邮校园导航</title>
 		<link rel="icon" href="./src/pic/index.ico" type="image/x-icon">
-		<link rel="stylesheet" type="text/css" href="src/reset.css"/>
-		<style>
-			.map{
-				width:1100px;
-				height:800px;
-				background-image: url(src/pic/下载1.png);
-				background-size: 100%;
-				background-repeat: no-repeat;
-				transform: scale(1,1);
-				top:0px;
-				left:0px;
-				position: relative;
-			}
-			.blue{
-				width:20px;
-				height:20px;
-				border-radius: 10px;
-				background-color: lightblue;
-				position: absolute;
-				top:330px;
-				left:265px;
-			}
-			.blue:hover{
-				cursor:pointer;
-			}
-			.wrap{
-				width:1100px;
-				height:800px;
-				overflow: hidden;
-				border:5px solid black;
-			}
-			.wrap:hover{
-				cursor: move;
-			}
-		</style>
+		<link rel="stylesheet" type="text/css" href="src/reset.css" />
+		<link rel="stylesheet" type="text/css" href="src/index.css" />
 	</head>
 	<body>
-		<div class="wrap">
-			<div class="map" style="left:0;top:0">
-				<div class="blue content"></div>
-				<div class="blue content" style="top:400px;left:524px;background-color:#f40"></div>
-				<div class="blue content" style="top:200px;left:424px;background-color:#330"></div>
+		<div class="right">
+			<div class="search">
+				<input type="text" class="searchPoint" placeholder="请输入查询的地点">
+				<span class="line">|</span>
+				<span class="shapcls"></span>
+				<span class="shape"></span>
+			</div>
+			<div class="name">
+				<div class="button_path">
+					<div class="button_to">到这去</div>
+					<div class="button_from">从这出发</div>
+				</div>
+				<div class="thing">
+					<div id="name"></div>
+					<div class="type"></div>
+				</div>
+			</div>
+			<div class="oo">
+				<div class="text">
+					<div class="tittle">简介</div>
+					<div id="message"></div>
+				</div>
+				<div class="img">
+					<div class="tittle">相册</div>
+					<div id="pic">
+						
+					</div>
+				</div>
+				<div class="discuss">
+					<div class="tittle">讨论</div>
+					<div class="discuss_thing"></div>
+				</div>
 			</div>
 		</div>
+		<div class="wrap">
+			<div class="map" style="left:0;top:0"></div>
+		</div>
+
 	</body>
 	<script src="src/Mapmove.js" type="text/javascript" charset="utf-8"></script>
-	<script type="text/javascript">
-		var map = new Map("wrap","map", "content");//遮罩名，地图名,控件名
-		map.scale(1100, 800, 0.1, 4); //地图宽度,地图高度,缩放速率,最大缩放倍率
-		//map.close();
-	</script>
+	<script src="src/index.js" type="text/javascript" charset="utf-8"></script>
 </html>

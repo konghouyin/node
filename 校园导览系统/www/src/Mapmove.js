@@ -1,5 +1,5 @@
 Map.prototype = {
-	a :function (e,showWidth, showHeight, step, max) {
+	a :function (e,showWidth, showHeight, step, max,callback) {
 		if (e.wheelDelta > 0) {
 			var pointX = (e.clientX - parseFloat(map.map.style.left) - (showWidth / 2)) / map.n + (showWidth / 2);
 			var pointY = (e.clientY - parseFloat(map.map.style.top) - (showHeight / 2)) / map.n + (showHeight / 2);
@@ -8,6 +8,7 @@ Map.prototype = {
 			map.map.style.transform = "scale(" + map.n + "," + map.n + ")";
 			map.map.style.left = ((showWidth / 2) - pointX) * (map.n - 1) + (e.clientX - pointX) + "px";
 			map.map.style.top = ((showHeight / 2) - pointY) * (map.n - 1) + (e.clientY - pointY) + "px";
+			callback(map.n);
 		} else if (e.wheelDelta < 0 && map.n > 1.001) {
 			var pointX = (e.clientX - parseFloat(map.map.style.left) - (showWidth / 2)) / map.n + (showWidth / 2);
 			var pointY = (e.clientY - parseFloat(map.map.style.top) - (showHeight / 2)) / map.n + (showHeight / 2);
@@ -37,15 +38,16 @@ Map.prototype = {
 					"px";
 			}
 		}
-	
+	callback(map.n);//执行回调,先执行，后样式
 		for (var i = 0; i < map.content.length; i++) {
 			map.content[i].style.transform = "scale(" + 1 / map.n + "," + (1 / map.n) + ")";
 		}
+		
 	},
 	
-	scale: function(showWidth, showHeight, step, max) {
+	scale: function(showWidth, showHeight, step, max,callback) {
 		var p = function p(e){
-			map.a(e,showWidth, showHeight, step, max);
+			map.a(e,showWidth, showHeight, step, max,callback);
 		}
 		this.wrap.addEventListener("mousewheel", p);
 		this.event = p;
@@ -58,13 +60,13 @@ Map.prototype = {
 
 function Map(wrapName, mapName, contentName) {
 	this.n=1;
-	this.event = null;
+	this.event = null;//用于结束事件监听器
 	this.content = document.getElementsByClassName(contentName);
 	this.map = document.getElementsByClassName(mapName)[0];
 	this.wrap = document.getElementsByClassName(wrapName)[0];
 }
 
-// 
+
 // 文档:
 // 新建一个map对象: var map = new Map(wrapName, mapName, contentName);
 // 使用map方法:map.scale(showWidth, showHeight, step, max);启动缩放
