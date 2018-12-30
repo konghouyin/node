@@ -56,37 +56,6 @@ body {
 	width: 115px;
 }
 
-.right .button_from::before,
-.right .button_to::before {
-	content: "";
-	display: inline-block;
-	width: 30px;
-	height: 30px;
-	top:0;
-	left:3px;
-	background-image: url(pic/from_go.png);
-	position: absolute;
-	background-position: 0 0;
-}
-.right .button_from::before {
-	background-position: -30px 0;
-}
-
-
-.right .button_from:hover,
-.right .button_to:hover{
-	background-color: #fff;
-	color: #3385FF;
-	cursor: pointer;
-}
-
-.right .button_to:hover::before{
-	background-position: -46px 0;
-}
-.right .button_from:hover::before{
-	background-position: -16px 0;
-}
-
 .right .button_from,
 .right .button_to {
 	height: 30px;
@@ -100,80 +69,119 @@ body {
 	position: relative;
 }
 
-
-.right .thing{
-	margin-right:120px ;
+.right .button_from::before,
+.right .button_to::before {
+	content: "";
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	top: 0;
+	left: 3px;
+	background-image: url(pic/from_go.png);
+	position: absolute;
+	background-position: 0 0;
 }
-#name{
+
+.right .button_from::before {
+	background-position: -30px 0;
+}
+
+
+.right .button_from:hover,
+.right .button_to:hover {
+	background-color: #fff;
+	color: #3385FF;
+	cursor: pointer;
+}
+
+.right .button_to:hover::before {
+	background-position: -46px 0;
+}
+
+.right .button_from:hover::before {
+	background-position: -16px 0;
+}
+
+.right .thing {
+	margin-right: 120px;
+}
+
+#name {
 	font-size: 24px;
 	color: #fff;
-	white-space:nowrap;
-	overflow:hidden;
-	text-overflow:ellipsis; 
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 	box-sizing: border-box;
 	padding: 15px 10px;
 }
-.right .thing .type{
+
+.right .thing .type {
 	font-size: 18px;
 	color: #fff;
 	padding: 15px;
 }
+
 .right .img,
 .right .discuss,
-.right .text{
+.right .text {
 	overflow: hidden;
 	box-sizing: border-box;
 	padding: 15px;
 	background-color: #fff;
 	border-bottom: 2px solid #666;
 }
-.right .tittle{
+
+.right .tittle {
 	font-size: 20px;
 	font-weight: bolder;
 	padding: 10px;
 	border-bottom: 1px solid #ccc;
 }
-#message{
+
+#message {
 	font-size: 18px;
 	padding: 10px;
 	line-height: 22px;
 }
 
-.right .img img{
-	float:left;
-	width:100px;
-	height:70px;
-	margin:10px;
+.right .img img {
+	float: left;
+	width: 100px;
+	height: 70px;
+	margin: 10px;
 	background-color: #CCCCCC;
 }
 
-.right .img img:hover{
+.right .img img:hover {
 	cursor: pointer;
 }
 
 
-
-.right .discuss{
-	border:0;
+.right .discuss {
+	border: 0;
 }
 
-.discuss .message{
+.discuss .message {
 	box-sizing: border-box;
 	border-bottom: 1px solid #ccc;
 	padding: 15px;
 }
-.discuss .message .name{
+
+.discuss .message .name {
 	font-size: 16px;
 	background-color: #fff;
-	float:left;
+	float: left;
 	color: #aaa;
 }
-.discuss .message .time{
+
+.discuss .message .time {
 	text-align: right;
 	font-size: 16px;
 	color: #aaa;
 }
-.discuss_thing .thing{
+
+.discuss_thing .thing {
 	line-height: 22px;
 	padding: 10px 10px 0 10px;
 	font-size: 18px;
@@ -181,24 +189,31 @@ body {
 }
 
 
-.oo{
-	max-height: 500px;
+.oo {
+	max-height: 0;
 	overflow-y: scroll;
 }
-.oo::-webkit-scrollbar {/*滚动条整体样式*/
-        width: 8px;     /*高宽分别对应横竖滚动条的尺寸*/
-        height: 10px;
-    }
-.oo::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
-        border-radius: 10px;
-         -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-        background: rgb(200,200,200);
-    }
-.oo::-webkit-scrollbar-track {/*滚动条里面轨道*/
-        -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-        border-radius: 10px;
-        background: #EDEDED;
-    }
+
+.oo::-webkit-scrollbar {
+	/*滚动条整体样式*/
+	width: 8px;
+	/*高宽分别对应横竖滚动条的尺寸*/
+	height: 10px;
+}
+
+.oo::-webkit-scrollbar-thumb {
+	/*滚动条里面小方块*/
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+	background: rgb(200, 200, 200);
+}
+
+.oo::-webkit-scrollbar-track {
+	/*滚动条里面轨道*/
+	-webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+	border-radius: 10px;
+	background: #EDEDED;
+}
 
 .map {
 	width: 1100px;
@@ -212,13 +227,15 @@ body {
 	position: relative;
 }
 
-.map .point{
-	width:100px;
+.map .point {
+	width: 100px;
+	display: inline-block;
 	text-align: center;
+	line-height: 20px;
+	cursor: pointer;
+	position: absolute;
 }
-.green{
-	position: relative;
-}
+
 .green::before {
 	content: "";
 	display: block;
@@ -231,9 +248,6 @@ body {
 	left: 35px;
 }
 
-.blue:hover {
-	cursor: pointer;
-}
 
 .wrap {
 	margin: 10px auto;
@@ -241,8 +255,15 @@ body {
 	height: 800px;
 	overflow: hidden;
 	border: 5px solid #aaa;
-}
+	cursor: url('./pic/openhand.cur'), auto;
 
-.wrap:hover {
-	cursor: move;
+	-moz-user-select: none;
+	/*火狐*/
+	-webkit-user-select: none;
+	/*webkit浏览器*/
+	-ms-user-select: none;
+	/*IE10*/
+	-khtml-user-select: none;
+	/*早期浏览器*/
+	user-select: none;
 }

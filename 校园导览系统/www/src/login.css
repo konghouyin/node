@@ -1,50 +1,66 @@
-.top{
-	margin: 30px;
-	margin-left:10%;
-	height: 85px;
-	
+body {
+	-moz-user-select: none;
+	/*火狐*/
+	-webkit-user-select: none;
+	/*webkit浏览器*/
+	-ms-user-select: none;
+	/*IE10*/
+	-khtml-user-select: none;
+	/*早期浏览器*/
+	user-select: none;
 }
-.top>.logo{
+
+.top {
+	margin: 30px;
+	margin-left: 10%;
+	height: 85px;
+
+}
+
+.top>.logo {
 	display: inline-block;
-	width:350px;
-	height:85px;
+	width: 350px;
+	height: 85px;
 	background-image: url(pic/logo_d.png);
 	background-repeat: no-repeat;
 	background-size: 100%;
 	vertical-align: top;
 }
-.top>.tittle{
+
+.top>.tittle {
 	font-size: 35px;
 	height: 85px;
 	display: inline-block;
 	vertical-align: top;
-	margin-left:50px;
+	margin-left: 50px;
 	line-height: 85px;
 	color: #1069a4;
 }
 
-.wrap{
-	padding: 20px;
-	border-radius:10px ;
-	background-color:#dbdbdb ;
+.wrap {
+	padding: 25px;
+	border-radius: 10px;
+	background-color: #ddddddd6;
 	height: 430px;
 	width: 1200px;
 	margin: 70px auto;
 	position: relative;
 }
-.wrap>.show_pic{
+
+.wrap>.show_pic {
 	background-image: url(pic/login_bg_pic.jpg);
-	width:700px;
+	width: 700px;
 	height: 500px;
 	background-repeat: no-repeat;
 	background-size: 100%;
-	
+
 }
-.wrap>.message{
+
+.wrap>.message {
 	position: absolute;
 	width: 480px;
 	left: 740px;
-	top:330px;
+	top: 330px;
 	font-size: 20px;
 	line-height: 30px;
 	box-sizing: border-box;
@@ -54,10 +70,10 @@
 .thing {
 	position: absolute;
 	width: 480px;
-	top:20px;
-	left: 740px;
+	top: 25px;
+	left: 748px;
 	border-radius: 5px;
-	background-color:#fff ;
+	background-color: #fff;
 	box-sizing: border-box;
 	padding: 25px;
 	padding-bottom: 15px;
@@ -76,7 +92,8 @@ form {
 
 .thing div input {
 	height: 20px;
-	width:200px;
+	width: 200px;
+	font-size: 17px;
 }
 
 #login,
@@ -89,17 +106,19 @@ form {
 
 .pic {
 	position: absolute;
-	top: 38%;
+	top: 41%;
 	left: 50%;
-	width: 300px;
+	width: 320px;
 	height: 160px;
-	margin-left: -150px;
+	margin-left: -160px;
 	background-color: #fff;
-	border: 3px solid darkorange;
+	border: 2px solid #00000042;
 	text-align: center;
+	border-radius: 15px;
 }
 
 #tpyzm {
+	font-size: 18px;
 	width: 80px;
 	height: 25px;
 	vertical-align: middle;
