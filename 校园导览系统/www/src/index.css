@@ -234,6 +234,10 @@ body {
 	line-height: 20px;
 	cursor: pointer;
 	position: absolute;
+	color: #888;
+}
+.map .point:hover{
+	color:#000;
 }
 
 .green::before {
@@ -245,7 +249,7 @@ body {
 	border-radius: 10px;
 	background-color: #02ff02;
 	top: -25px;
-	left: 35px;
+	left: 42px;
 }
 
 

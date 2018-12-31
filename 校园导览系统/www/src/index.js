@@ -7,7 +7,11 @@ var points = [{
 		name: "喷泉广场",
 		img: ["http://english.xupt.edu.cn/images/13/07/10/ti1gatucb1/13fc7c83a14.jpg",
 			"http://imgsrc.baidu.com/forum/w%3D580/sign=f32f28adb812c8fcb4f3f6c5cc0292b4/5c95d739b6003af3bb2386ed342ac65c1138b66c.jpg",
-			"https://cdn.applysquare.net/storage/tmp/qa/Nat1TiFk3/NastU8eoT.png"
+			"https://cdn.applysquare.net/storage/tmp/qa/Nat1TiFk3/NastU8eoT.png",
+			"http://english.xupt.edu.cn/images/13/07/10/ti1gatucb1/13fc7c83a14.jpg",
+				"http://imgsrc.baidu.com/forum/w%3D580/sign=f32f28adb812c8fcb4f3f6c5cc0292b4/5c95d739b6003af3bb2386ed342ac65c1138b66c.jpg",
+				"https://cdn.applysquare.net/storage/tmp/qa/Nat1TiFk3/NastU8eoT.png","http://english.xupt.edu.cn/images/13/07/10/ti1gatucb1/13fc7c83a14.jpg",
+			"http://imgsrc.baidu.com/forum/w%3D580/sign=f32f28adb812c8fcb4f3f6c5cc0292b4/5c95d739b6003af3bb2386ed342ac65c1138b66c.jpg",
 		],
 		text: "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;景观位于西安邮电大学长安校区西区北门，是西邮著名地标，由象征邮政的鸽子雕像，和象征电子技术的抽象雕像组成，除此之外还配有喷泉，同学们戏称为水煮鸽子。",
 		message: [{
@@ -129,7 +133,7 @@ function showall(level) {
 //缩放回调函数，按大小显示页面节点
 var map = new Map("wrap", "map", "content"); //遮罩名，地图名,控件名
 map.scale(1100, 800, 0.1, 4, showall); //地图宽度,地图高度,缩放速率,最大缩放倍率
-
+map.start(1100, 800);
 
 
 var search = document.getElementsByClassName('searchPoint')[0];
