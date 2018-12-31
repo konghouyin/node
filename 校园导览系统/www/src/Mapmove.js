@@ -51,9 +51,10 @@ Map.prototype = {
 
 	scale: function(showWidth, showHeight, step, max, callback) {
 		var p = function p(e) {
+			e.preventDefault();
 			map.a(e, showWidth, showHeight, step, max, callback);
 		}
-		this.wrap.addEventListener("mousewheel", p);
+		this.wrap.addEventListener("mousewheel", p,{passive:false});
 		this.event = p;
 	},
 	close: function() {
@@ -69,7 +70,6 @@ Map.prototype = {
 		}
 		var q = function(e) {
 			if (map.mouse == 1) {
-				console.log(e.offsetX-map.x);
 				map.map.style.left = e.offsetX-map.x+parseFloat(map.map.style.left)+"px";
 				map.map.style.top = e.offsetY-map.y+parseFloat(map.map.style.top)+"px";
 				if (showWidth * map.n / 2 - parseFloat(map.map.style.left) < showWidth / 2) {

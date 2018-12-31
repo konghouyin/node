@@ -3,6 +3,7 @@ var points = [{
 		positionX: 650,
 		positionY: 620,
 		style: "景观",
+		small:"jingguan",
 		level: 1.3,
 		name: "喷泉广场",
 		img: ["http://english.xupt.edu.cn/images/13/07/10/ti1gatucb1/13fc7c83a14.jpg",
@@ -41,6 +42,7 @@ var points = [{
 		positionX: 550,
 		positionY: 200,
 		style: "体育",
+		small:"tiyu",
 		level: 1,
 		name: "大操场",
 		img: [],
@@ -59,6 +61,7 @@ var points = [{
 		positionY: 600,
 		style: "教育",
 		level: 1,
+		small:"xue",
 		name: "逸夫楼",
 		img: [],
 		text: "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;西安邮电大学东区，教学楼，是计算机学院，数字艺术传媒学院，研究生的上课和实验场所。也是3G实验室的所在地！！！",
@@ -75,6 +78,7 @@ var points = [{
 		positionY: 230,
 		style: "体育",
 		level: 1.3,
+		small:"tiyu",
 		name: "体育馆",
 		img: [],
 		text: "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;西安邮电大学体育场，内设有排球场地，篮球场地，乒乓球，羽毛球。每年迎新杯比赛在这里举行",
@@ -96,6 +100,7 @@ var points = [{
 		positionY: 740,
 		style: "基础设施",
 		level: 1,
+		small:"men",
 		name: "北门",
 		img: [],
 		text: "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;西邮正门，最大的门",
@@ -107,6 +112,28 @@ var points = [{
 			{
 					name:"9277",
 					thing:"是个门",
+					time:"2018-12-29"
+				}
+		]
+	},
+	{
+		id: 6,
+		positionX: 660,
+		positionY: 400,
+		style: "教育",
+		level: 1,
+		small:"xue",
+		name: "图书馆",
+		img: [],
+		text: "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;西安邮电大学图书馆，有很多藏书",
+		message: [{
+				name:"ppop",
+				thing:"MySQL必知必会借不到。",
+				time:"2018-12-30"
+			},
+			{
+					name:"学",
+					thing:"书普遍偏旧",
 					time:"2018-12-29"
 				}
 		]
@@ -146,8 +173,12 @@ var discuss = document.getElementsByClassName('discuss_thing')[0];
 
 Point.prototype = {
 	click: function(point) {
+		var list = document.getElementsByClassName('search_ans')[0];
+		list.style.maxHeight = "0px";
+		//关闭查询列表
 		var oo = document.getElementsByClassName('oo')[0];
 		oo.style.maxHeight = "500px";
+		//打开详情列表
 		oo.scrollTo(0,0);//页面归零
 		search.value = point.name;
 		pointName.innerHTML = point.name;
@@ -207,7 +238,7 @@ Point.prototype = {
 		var map = document.getElementsByClassName("map")[0];
 		var div = document.createElement("div");
 		div.innerHTML = point.name;
-		div.setAttribute('class', 'content green point');
+		div.setAttribute('class', 'content point '+point.small);
 		div.style.left = point.positionX + "px";
 		div.style.top = point.positionY + "px";
 		div.point = point.id;
@@ -234,17 +265,94 @@ clickEvent.addEventListener('click', function(e) {
 				break;
 			}
 		}
-
 	}
 })
+//点击事件，显示详情
+
 clickEvent.addEventListener('mousedown', function() {
 	document.getElementsByClassName('wrap')[0].style.cursor = "url('./src/pic/closedhand.cur'),auto";
 })
 clickEvent.addEventListener('mouseup', function() {
 	document.getElementsByClassName('wrap')[0].style.cursor = "url('./src/pic/openhand.cur'),auto";
 })
+//更改鼠标样式
+
+var point_input = document.getElementsByClassName('searchPoint')[0];
+var fint_timer;//添加查找定时器
+point_input.addEventListener('focus',function(){
+	var blue = document.getElementsByClassName("thing")[0];
+	blue.children[0].innerHTML="请在备选列表中选择";
+	blue.children[1].innerHTML="";
+	var oo = document.getElementsByClassName('oo')[0];
+	oo.style.maxHeight = "0px";
+	//关闭详情列表
+	fint_timer = setInterval(function(){
+		showans(find(point_input.value));
+	},500)
+})
+//输入框取得焦点
+
+point_input.addEventListener('blur',function(){
+	point_input.value = "";
+	//清空原搜索框
+	var blue = document.getElementsByClassName("thing")[0];
+	blue.children[0].innerHTML="可以在地图上选择点";
+	blue.children[1].innerHTML="";
+	clearInterval(fint_timer);
+	var list = document.getElementsByClassName('search_ans')[0];
+	list.style.maxHeight = "0px";
+})
+//输入框失去焦点
 
 
+function showans(arr){
+	if(arr.length==0){
+		return;
+	}
+	var list = document.getElementsByClassName('search_ans')[0];
+	while(list.children.length>0){
+		list.children[0].remove();
+	}
+	list.style.maxHeight = "500px";
+	//打开列表，清空原有内容
+	for(var i=0;i<arr.length;i++){
+		var node = document.createElement('div');
+		node.innerHTML = arr[i].name+"---"+arr[i].style;
+		node.setAttribute('class','node');
+		node.point = arr[i].id;
+		list.appendChild(node);
+	}
+	//添加元素	
+}
+//将所有符合要求的内容添加到对象中
+
+function find(keyWord){
+	var len = points.length;
+	var arr = [];
+	if(keyWord==""){
+		return arr;
+	}
+	for(var i=0;i<len;i++){
+	    //如果字符串中不包含目标字符会返回-1
+	    if(points[i].name.indexOf(keyWord)>=0){
+	        arr.push(points[i]);
+	    }
+	}
+	return arr;
+}
+//字符串方法indexOf，模糊搜索
+
+document.getElementsByClassName("search_ans")[0].addEventListener("click",function(e){
+	if(e.path.length==7){
+		for (each in points) {
+			console.log(points[each].id );
+			if (points[each].id == e.path[0].point) {
+				Point.prototype.click(points[each]);
+				break;
+			}
+		}
+	}
+})
 
 //style:1风景 2教育 3餐饮 4住宿
 showall(1);//默认初始化显示所有信息
