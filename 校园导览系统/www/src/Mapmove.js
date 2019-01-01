@@ -63,10 +63,11 @@ Map.prototype = {
 
 	start: function(showWidth, showHeight) {
 		var p = function(e) {
-
-			map.mouse = 1;
-			map.x = e.offsetX;
-			map.y = e.offsetY;
+			if(e.path[0].id == "path"){
+				map.mouse = 1;
+				map.x = e.offsetX;
+				map.y = e.offsetY;
+			}
 		}
 		var q = function(e) {
 			if (map.mouse == 1) {

@@ -16,6 +16,9 @@ body {
 	width: 400px;
 	height: 43px;
 	background-color: #fff;
+	overflow: hidden;
+	max-height: 50px;
+	transition: all 0.5s ease-in-out;
 }
 
 .right .searchPoint {
@@ -37,18 +40,23 @@ body {
 
 .right .shape {
 	display: inline-block;
-	width: 30px;
-	height: 30px;
+	width: 40px;
+	height: 40px;
 	background-image: url(pic/shapeall.png);
 	background-repeat: no-repeat;
 	background-position: 0px 0px;
 	background-size: 60px;
 	vertical-align: top;
 }
+.right .shape:hover{
+	cursor: pointer;
+}
 
 .right .name {
 	background-color: #3385FF;
 	overflow: hidden;
+	max-height: 200px;
+	transition: all 0.5s ease-in-out;
 }
 
 .right .button_path {
@@ -217,18 +225,20 @@ body {
 }
 
 
-.search_ans{
+.search_ans {
 	background-color: #fff;
 	max-height: 0px;
 	transition: all 1s ease-in-out;
-	overflow-y:hidden;
+	overflow-y: hidden;
 }
-.search_ans .node{
+
+.search_ans .node {
 	font-size: 18px;
 	padding: 10px 15px;
-	color:#aaa;
+	color: #aaa;
 }
-.search_ans .node:hover{
+
+.search_ans .node:hover {
 	background-color: #ddd;
 	color: #000;
 	cursor: pointer;
@@ -245,7 +255,7 @@ body {
 	transform: scale(1, 1);
 	top: 0px;
 	left: 0px;
-	position: relative;
+	position: absolute;
 }
 
 .map .point {
@@ -257,8 +267,9 @@ body {
 	position: absolute;
 	color: #888;
 }
-.map .point:hover{
-	color:#000;
+
+.map .point:hover {
+	color: #000;
 }
 
 .point::before {
@@ -272,20 +283,32 @@ body {
 	top: -25px;
 	left: 40px;
 }
-.jingguan::before{
+
+.jingguan::before {
 	background-image: url(pic/jingguan.png);
 }
-.men::before{
+
+.men::before {
 	background-image: url(pic/men.png);
 }
-.eat::before{
+
+.eat::before {
 	background-image: url(pic/eat.png);
 }
-.tiyu::before{
+
+.tiyu::before {
 	background-image: url(pic/tiyu.png);
 }
-.xue::before{
+
+.xue::before {
 	background-image: url(pic/study.png);
+}
+
+
+.#path {
+	position: absolute;
+	top: 0;
+	left: 0;
 }
 
 .wrap {
@@ -295,6 +318,7 @@ body {
 	overflow: hidden;
 	border: 5px solid #aaa;
 	cursor: url('./pic/openhand.cur'), auto;
+	position: relative;
 
 	-moz-user-select: none;
 	/*火狐*/
@@ -306,3 +330,83 @@ body {
 	/*早期浏览器*/
 	user-select: none;
 }
+
+
+.search_path {
+	background-color: #fff;
+	overflow: hidden;
+	max-height: 0px;
+	transition: all 0.5s ease-in-out;
+}
+
+.search_path .turn {
+	float: left;
+	width: 50px;
+	height:80px;
+	background-image: url(pic/turn.png);
+	background-repeat: no-repeat;
+	background-size: 50%;
+	background-position: 12px 30px;
+}
+
+.search_path .button {
+	float: right;
+	width: 50px;
+}
+.search_path .back,
+.search_path .search_button{
+	width:50px;
+	height: 40px;
+	background-image: url(pic/shapeall.png);
+	background-size: 100%;
+	background-position:  0 -65px;
+}
+.search_path .back{
+	background-position:9px -32px;
+}
+.search_path .back:hover,
+.search_path .search_button:hover{
+	cursor: pointer;
+}
+
+.search_path .searchPath {
+	padding-left: 20px;
+	font-size: 17px;
+	width: 300px;
+	height: 40px;
+	outline: none;
+	border: none;
+}
+.search_path .start{
+	position: relative;
+	border-bottom: 1px solid #ccc;
+}
+.search_path .end{
+	position: relative;
+}
+
+.search_path .end:before,
+.search_path .start:before {
+	content: "";
+	display: block;
+	width: 30px;
+	height: 30px;
+	top: 0;
+	left: 0;
+	background-repeat: no-repeat;
+	position: absolute;
+	background-position: 0 15px;
+}
+
+.search_path .start:before {
+	background-image: url(pic/start.png);
+}
+.search_path .end:before {
+	background-image: url(pic/end.png);
+}
+
+.search_path .inputs {
+	overflow: hidden;
+	margin: 0 50px;
+}
+

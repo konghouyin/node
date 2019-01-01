@@ -17,6 +17,18 @@
 				<span class="shapcls"></span>
 				<span class="shape"></span>
 			</div>
+			<div class="search_path">
+				<div class="turn"></div>
+				<div class="button">
+					<div class="search_button"></div>
+					<div class="back"></div>
+				</div>
+				<div class="inputs">
+					<div class="start"><input type="text" class="searchPath" placeholder="输入起点或在地图上选点"></div>
+					<div class="end"><input type="text" class="searchPath" placeholder="输入终点"></div>
+				</div>
+				
+			</div>
 			<div class="name">
 				<div class="button_path">
 					<div class="button_to">到这去</div>
@@ -34,24 +46,23 @@
 				</div>
 				<div class="img">
 					<div class="tittle">相册</div>
-					<div id="pic">
-
-					</div>
+					<div id="pic"></div>
 				</div>
 				<div class="discuss">
 					<div class="tittle">讨论</div>
 					<div class="discuss_thing"></div>
 				</div>
 			</div>
-			<div class="search_ans">
-				
-			</div>
+			<div class="search_ans"></div>
 		</div>
+
 		<div class="wrap">
-			<div class="map" style="left:0;top:0"></div>
+
+			<div class="map" style="left:0;top:0"><canvas id="path" class="" width="1100" height="800"></canvas></div>
 		</div>
 
 	</body>
 	<script src="src/Mapmove.js" type="text/javascript" charset="utf-8"></script>
 	<script src="src/index.js" type="text/javascript" charset="utf-8"></script>
+	<script src="src/canvas.js" type="text/javascript" charset="utf-8"></script>
 </html>
