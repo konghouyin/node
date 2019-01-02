@@ -400,8 +400,7 @@ document.getElementsByClassName("search_ans")[0].addEventListener("click", funct
 	}
 })
 
-//style:1风景 2教育 3餐饮 4住宿
-showall(1); //默认初始化显示所有信息-----------------------------------------------------------------
+
 
 //路径
 function findId(id) {
@@ -455,7 +454,7 @@ function createPath(obj) {
 	}
 	//存储路径,无向网
 }
-
+//创建路的存储
 var pathFlag = 0; //标记路径搜索是否打开
 
 var pathL = document.getElementsByClassName("shape")[0];
@@ -489,6 +488,8 @@ closeL.addEventListener("click", function(e) {
 	var searchPoint = document.getElementsByClassName("searchPoint")[0];
 	var type = document.getElementsByClassName("type")[0];
 	var name1 = document.getElementById("name");
+	var pathAns = document.getElementsByClassName('path_ans')[0];
+	pathAns.style.maxHeight = "0px";
 	var wrong = document.getElementsByClassName('wrong')[0];
 	wrong.style.maxHeight = "0px";
 
@@ -501,11 +502,12 @@ closeL.addEventListener("click", function(e) {
 	type.innerHTML = "";
 	searchPoint.value = "";
 })
-
+//查询路径的打开关闭
 
 function pathab(arr, point1, point2) {
 	return arr[point1][point2];
 }
+//查询两点间直接通路
 
 Path.prototype = {
 	findPath: function(arr, id2, id1) {
@@ -559,8 +561,6 @@ function Path(id1, id2) {
 	this.point2 = id2;
 }
 createPath(); //启动后生成ajax文件--------------------------------------
-//console.log(Path.prototype.findPath(sLength,6,5))//查路-------------------------------------
-
 
 
 //路径搜索的js部分
@@ -571,6 +571,8 @@ start.addEventListener("focus", function() {
 	pathFlag = 1;
 	start.placeholder = "输入起点或在地图上选点";
 	end.placeholder = "输入终点";
+	var pathAns = document.getElementsByClassName('path_ans')[0];
+	pathAns.style.maxHeight = "0px";
 	var wrong = document.getElementsByClassName('wrong')[0];
 	wrong.style.maxHeight = "0px";
 	fint_timer = setInterval(function() {
@@ -588,6 +590,8 @@ end.addEventListener("focus", function() {
 	pathFlag = 2;
 	start.placeholder = "输入起点";
 	end.placeholder = "输入终点或在地图上选点";
+	var pathAns = document.getElementsByClassName('path_ans')[0];
+	pathAns.style.maxHeight = "0px";
 	var wrong = document.getElementsByClassName('wrong')[0];
 	wrong.style.maxHeight = "0px";
 	fint_timer = setInterval(function() {
@@ -601,7 +605,6 @@ end.addEventListener("blur", function() {
 	var list = document.getElementsByClassName('search_ans')[0];
 	list.style.maxHeight = "0px";
 })
-
 //搜索搜索文本框
 
 
@@ -668,6 +671,7 @@ buttonPath.addEventListener('click', function(e) {
 		search_ans.style.maxHeight = "0px";
 	}
 })
+//由景点直接跳转至路径搜索
 
 function findTrue(name1, name2) {
 	var back = new Array(2);
@@ -703,7 +707,15 @@ function showWrong(id1, id2) {
 		wrong.children[1].children[1].classList.add("cheng");
 	}
 }
-//显示错误
+//显示查询错误
+function findName(id){
+	for (var each in points) {
+		if (points[each].id == id) {
+			return points[each].name;
+		}
+	}
+}
+//根据id查询，对应名称
 
 function showNoPath(i) {
 	var pthing = document.getElementsByClassName('pthing');
@@ -712,21 +724,13 @@ function showNoPath(i) {
 	node.innerHTML = "没有通路";
 	pthing[i].appendChild(node);
 }
-function findName(id){
-	for (var each in points) {
-		if (points[each].id == id) {
-			return points[each].name;
-		}
-	}
-}
-
 function showPathLength(id1,id2,i){
 	var pthing = document.getElementsByClassName("pthing")[i];
 	for(var each in sides){
 		if(sides[each].point1==id1&&sides[each].point2==id2){
 			var snode = document.createElement('div');
 			snode.setAttribute("class", "snode");
-			snode.innerHTML = findName(sides[each].point1);
+			snode.innerHTML = findName(id1);
 			pthing.children[1].appendChild(snode);
 			//绘图---------------------------------------------------------------
 			return sides[each].length;
@@ -734,14 +738,14 @@ function showPathLength(id1,id2,i){
 		if(sides[each].point2==id1&&sides[each].point1==id2){
 			var snode = document.createElement('div');
 			snode.setAttribute("class", "snode");
-			snode.innerHTML = findName(sides[each].point1);
+			snode.innerHTML = findName(id1);
 			pthing.children[1].appendChild(snode);
 			//绘图------------------------------------------------------------
 			return sides[each].length;
 		}
 	}
 }
-
+//显示路径，并画图
 function showPath(arr,s) {
 	var pthing = document.getElementsByClassName('pthing')[s];
 	var node = document.createElement('div');
@@ -780,6 +784,9 @@ searchButton.addEventListener('click', function() {
 		showWrong(list[0], list[1]);
 		return;
 	}
+	
+	var pathAns = document.getElementsByClassName('path_ans')[0];
+	pathAns.style.maxHeight = "500px";
 
 	var line = Path.prototype.findPath(sLength, list[0], list[1]);
 	console.log(line);
@@ -791,18 +798,34 @@ searchButton.addEventListener('click', function() {
 				n[0].remove();
 			}
 		} catch (e) {}
+		try {
+			var n = document.getElementsByClassName('snode');
+			var length = n.length;
+			while (length--) {
+				n[0].remove();
+			}
+		} catch (e) {}
 		showNoPath(0);
 		showNoPath(1);
 		showNoPath(2);
 	} else {
+		try {
+			var n = document.getElementsByClassName('nnode');
+			var length = n.length;
+			while (length--) {
+				n[0].remove();
+			}
+		} catch (e) {}
+		try {
+			var n = document.getElementsByClassName('snode');
+			var length = n.length;
+			while (length--) {
+				n[0].remove();
+			}
+		} catch (e) {}
 		showPath(line, 0);
 		showPath(Path.prototype.findPath(sBeautiful, list[0], list[1]), 1);
 		showPath(Path.prototype.findPath(sGreen, list[0], list[1]), 2);
 	}
-
-
-	//进入计算
-
 })
-
-//长度
+//路径搜索按钮
