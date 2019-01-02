@@ -391,7 +391,7 @@ document.getElementsByClassName("search_ans")[0].addEventListener("click", funct
 })
 
 //style:1风景 2教育 3餐饮 4住宿
-showall(1); //默认初始化显示所有信息
+showall(1); //默认初始化显示所有信息-----------------------------------------------------------------
 
 //路径
 function findId(id) {
@@ -446,6 +446,7 @@ function createPath(obj) {
 }
 
 var pathFlag = 0; //标记路径搜索是否打开
+
 var pathL = document.getElementsByClassName("shape")[0];
 pathL.addEventListener("click", function(e) {
 	pathFlag = 1;
@@ -477,7 +478,8 @@ closeL.addEventListener("click", function(e) {
 	var searchPoint = document.getElementsByClassName("searchPoint")[0];
 	var type = document.getElementsByClassName("type")[0];
 	var name1 = document.getElementById("name");
-
+	var wrong = document.getElementsByClassName('wrong')[0];
+	wrong.style.maxHeight="0px";
 
 	search.style.maxHeight = "50px";
 	search_path.style.maxHeight = "0px";
@@ -545,8 +547,8 @@ function Path(id1, id2) {
 	this.point1 = id1;
 	this.point2 = id2;
 }
-createPath(); //启动后生成ajax文件
-//console.log(Path.prototype.findPath(sLength,6,5))、、查路
+createPath(); //启动后生成ajax文件--------------------------------------
+//console.log(Path.prototype.findPath(sLength,6,5))//查路-------------------------------------
 
 
 
@@ -558,6 +560,8 @@ start.addEventListener("focus", function() {
 	pathFlag = 1;
 	start.placeholder = "输入起点或在地图上选点";
 	end.placeholder = "输入终点";
+	var wrong = document.getElementsByClassName('wrong')[0];
+	wrong.style.maxHeight="0px";
 	fint_timer = setInterval(function() {
 		var list = document.getElementsByClassName('search_ans')[0];
 		list.style.maxHeight = "500px";
@@ -573,6 +577,8 @@ end.addEventListener("focus", function() {
 	pathFlag = 2;
 	start.placeholder = "输入起点";
 	end.placeholder = "输入终点或在地图上选点";
+	var wrong = document.getElementsByClassName('wrong')[0];
+	wrong.style.maxHeight="0px";
 	fint_timer = setInterval(function() {
 		var list = document.getElementsByClassName('search_ans')[0];
 		list.style.maxHeight = "500px";
@@ -596,16 +602,129 @@ turn.addEventListener("click", function() {
 })
 //上下位置交换
 
-var buttonTo = document.getElementsByClassName('button_to')[0];
-var buttonFrom = document.getElementsByClassName('button_from')[0];
+var buttonPath = document.getElementsByClassName('name')[0];
+buttonPath.addEventListener('click',function(e){
+	var flag = 1;
+	var nameid = document.getElementById('name');
+	if(nameid.innerHTML=="可以在地图上选择点"||nameid.innerHTML=="请在备选列表中选择"){
+		flag = 0;
+	}
+		 
+	if(e.path[0].className=="button_from"){
+		pathFlag = 2;
+		var searchPath = document.getElementsByClassName("searchPath");
+		var search = document.getElementsByClassName("search")[0];
+		var search_path = document.getElementsByClassName("search_path")[0];
+		var name = document.getElementsByClassName("name")[0];
+		var oo = document.getElementsByClassName("oo")[0];
+		var search_ans = document.getElementsByClassName("search_ans")[0];
+		if(flag==1){
+			searchPath[0].value = nameid.innerHTML;
+		}else{
+			searchPath[0].value = "";
+		}
+		searchPath[0].placeholder = "输入起点";
+		searchPath[1].value = "";
+		searchPath[1].placeholder = "输入终点或在地图上选点";
+		search.style.maxHeight = "0px";
+		search_path.style.maxHeight = "100px";
+		name.style.maxHeight = "0px";
+		oo.style.maxHeight = "0px";
+		search_ans.style.maxHeight = "0px";
+		
+	}else if(e.path[0].className=="button_to"){
+		
+		pathFlag = 1;
+		var searchPath = document.getElementsByClassName("searchPath");
+		var search = document.getElementsByClassName("search")[0];
+		var search_path = document.getElementsByClassName("search_path")[0];
+		var name = document.getElementsByClassName("name")[0];
+		var oo = document.getElementsByClassName("oo")[0];
+		var search_ans = document.getElementsByClassName("search_ans")[0];
+		
+		searchPath[0].value = "";
+		searchPath[0].placeholder = "输入起点或在地图上选点";
+		if(flag==1){
+			searchPath[1].value = nameid.innerHTML;
+		}else{
+			searchPath[1].value = "";
+		}
+		searchPath[1].placeholder = "输入终点";
+		search.style.maxHeight = "0px";
+		search_path.style.maxHeight = "100px";
+		name.style.maxHeight = "0px";
+		oo.style.maxHeight = "0px";
+		search_ans.style.maxHeight = "0px";
+	}
+})
 
-buttonTo.addEventListener('click',function(){
+function findTrue(name1,name2){
+	var back = new Array(2);
+	for(each in points){
+		if(points[each].name == name1){
+			back[0]=points[each].id;
+		}
+		if(points[each].name == name2){
+			back[1]=points[each].id;
+		}
+	}
+	return back;
+}
+//根据名称查询，对应id
+
+function showWrong(id1,id2){
+	var wrong = document.getElementsByClassName('wrong')[0];
+	wrong.style.maxHeight="200px";
+	wrong.children[1].children[0].children[0].innerHTML = start.value;
+	wrong.children[1].children[1].children[0].innerHTML = end.value;
+	if(id1==undefined){
+		wrong.children[1].children[0].classList.remove("cheng");
+		wrong.children[1].children[0].classList.add("bai");
+	}else{
+		wrong.children[1].children[0].classList.remove("bai");
+		wrong.children[1].children[0].classList.add("cheng");
+	}
+	
+	if(id2==undefined){
+		wrong.children[1].children[1].classList.remove("cheng");
+		wrong.children[1].children[1].classList.add("bai");
+	}else{
+		wrong.children[1].children[1].classList.remove("bai");
+		wrong.children[1].children[1].classList.add("cheng");
+	}
+}
+//显示错误
+
+var searchButton = document.getElementsByClassName('search_button')[0];
+searchButton.addEventListener('click',function(){
+	var list = findTrue(start.value,end.value);
+	var wrong = document.getElementsByClassName('wrong')[0];
+	if(start.value == "" || end.value== ""){
+		wrong.children[0].innerHTML = "请选择准确的起点或终点";		
+		showWrong(list[0],list[1]);
+		return ;
+	}
+	if(start.value == end.value){
+		wrong.children[0].innerHTML = "请选择不同的起点或终点";
+		showWrong(undefined,undefined);
+		return;
+	}
+	if(list[0] == undefined || list[1] == undefined){
+		wrong.children[0].innerHTML = "请选择准确的起点或终点";
+		showWrong(list[0],list[1]);
+		return;
+	}
+	console.log(Path.prototype.findPath(sLength,list[0],list[1]));
+	console.log(Path.prototype.findPath(sBeautiful,list[0],list[1]));
+	console.log(Path.prototype.findPath(sGreen,list[0],list[1]));
+	
+	
+	//进入计算
 	
 })
 
-buttonFrom.addEventListener('click',function(){
-	
-})
+//长度
+
 
 
 

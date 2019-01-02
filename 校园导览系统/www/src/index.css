@@ -48,7 +48,8 @@ body {
 	background-size: 60px;
 	vertical-align: top;
 }
-.right .shape:hover{
+
+.right .shape:hover {
 	cursor: pointer;
 }
 
@@ -342,7 +343,7 @@ body {
 .search_path .turn {
 	float: left;
 	width: 50px;
-	height:80px;
+	height: 80px;
 	background-image: url(pic/turn.png);
 	background-repeat: no-repeat;
 	background-size: 50%;
@@ -353,20 +354,23 @@ body {
 	float: right;
 	width: 50px;
 }
+
 .search_path .back,
-.search_path .search_button{
-	width:50px;
+.search_path .search_button {
+	width: 50px;
 	height: 40px;
 	background-image: url(pic/shapeall.png);
 	background-size: 100%;
-	background-position:  0 -65px;
+	background-position: 0 -65px;
 }
-.search_path .back{
-	background-position:9px -32px;
+
+.search_path .back {
+	background-position: 9px -32px;
 }
+
 .search_path .turn:hover,
 .search_path .back:hover,
-.search_path .search_button:hover{
+.search_path .search_button:hover {
 	cursor: pointer;
 }
 
@@ -378,11 +382,13 @@ body {
 	outline: none;
 	border: none;
 }
-.search_path .start{
+
+.search_path .start {
 	position: relative;
 	border-bottom: 1px solid #ccc;
 }
-.search_path .end{
+
+.search_path .end {
 	position: relative;
 }
 
@@ -402,6 +408,7 @@ body {
 .search_path .start:before {
 	background-image: url(pic/start.png);
 }
+
 .search_path .end:before {
 	background-image: url(pic/end.png);
 }
@@ -411,3 +418,65 @@ body {
 	margin: 0 50px;
 }
 
+.right .wrong {
+	background-color: #fff;
+	max-height: 0;
+	overflow: hidden;
+	transition: all 0.5s ease-in-out;
+}
+
+.right .wrong .tittle {
+	padding: 15px 10px 0 10px;
+	color: #f40;
+	font-size: 18px;
+	text-align: center;
+	border-top: 1px solid #ccc;
+	border-bottom: none;
+}
+
+.wrong .things {
+	padding: 15px;
+}
+
+.wrong .qidian,
+.wrong .zhongdian {
+	margin: 15px;
+	padding: 10px;
+	font-size: 18px;
+	padding-left: 40px;
+	position: relative;
+}
+
+.cheng {
+	border: 1px solid #dee3ea;
+	color: #5B7BCB;
+	background-color: #f6faff;
+}
+
+.cheng:before {
+	content: "";
+	display: block;
+	position: absolute;
+	width:30px;
+	height: 30px;
+	background-image: url(pic/tf.gif);
+	top:5px;
+	left:5px;
+	background-position: 27px 0;
+}
+
+.bai {
+	border: 1px solid #d9ad82;
+	color: #FA8722;
+	background-color: #fffcf5;
+}
+.bai:before {
+	content: "";
+	display: block;
+	position: absolute;
+	width:30px;
+	height: 30px;
+	background-image: url(pic/tf.gif);
+	top:5px;
+	left:5px;
+}
