@@ -70,7 +70,7 @@ Map.prototype = {
 			}
 		}
 		var q = function(e) {
-			if (map.mouse == 1) {
+			if (map.mouse == 1 && e.path[0].id == "path") {
 				map.map.style.left = e.offsetX-map.x+parseFloat(map.map.style.left)+"px";
 				map.map.style.top = e.offsetY-map.y+parseFloat(map.map.style.top)+"px";
 				if (showWidth * map.n / 2 - parseFloat(map.map.style.left) < showWidth / 2) {

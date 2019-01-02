@@ -138,14 +138,25 @@ var points = [{
 	}
 ];
 var sides = [{
-	id: 1,
-	point1: 2,
-	point2: 6,
-	length: 292,
-	beautiful: 8,
-	green: 0,
-	path: "'circle',660, 340,520,370, 515, 470"
-}];
+		id: 1,
+		point1: 1,
+		point2: 6,
+		length: 292,
+		beautiful: 8,
+		green: 0,
+		path: "'circle',660, 340,520,370, 515, 470"
+	},
+	{
+		id: 2,
+		point1: 5,
+		point2: 1,
+		length: 127,
+		beautiful: 4,
+		green: 0,
+		path: ""
+	},
+
+];
 
 
 var paths = [];
@@ -181,6 +192,17 @@ var discuss = document.getElementsByClassName('discuss_thing')[0];
 
 Point.prototype = {
 	click: function(point) {
+		if (pathFlag != 0) {
+			var input = document.getElementsByClassName('searchPath');
+			input[pathFlag - 1].value = point.name;
+			if (pathFlag == 1) {
+				pathFlag++;
+				input[0].placeholder = "输入起点";
+				input[1].placeholder = "输入终点或在地图上选点";
+			}
+			return;
+		}
+
 		var list = document.getElementsByClassName('search_ans')[0];
 		list.style.maxHeight = "0px";
 		//关闭查询列表
@@ -360,7 +382,6 @@ function find(keyWord) {
 document.getElementsByClassName("search_ans")[0].addEventListener("click", function(e) {
 	if (e.path.length == 7) {
 		for (each in points) {
-			console.log(points[each].id);
 			if (points[each].id == e.path[0].point) {
 				Point.prototype.click(points[each]);
 				break;
@@ -372,18 +393,73 @@ document.getElementsByClassName("search_ans")[0].addEventListener("click", funct
 //style:1风景 2教育 3餐饮 4住宿
 showall(1); //默认初始化显示所有信息
 
-
-
-
 //路径
+function findId(id) {
+	for (var i = 0; i < points.length; i++) {
+		if (id == p[i]) {
+			return i;
+		}
+	}
+	return null;
+}
+//由地点id号，转换为数组下标
+
+function createPath(obj) {
+	sLength = new Array();
+	sBeautiful = new Array();
+	sGreen = new Array();
+
+	for (var i = 0; i < 150; i++) {
+		sLength.push(new Array(150));
+		sBeautiful.push(new Array(150));
+		sGreen.push(new Array(150));
+	}
+	//建立二维数组
+
+	for (var i = 0; i < 150; i++) {
+		for (var j = 0; j < 150; j++) {
+			sLength[i][j] = 10000000;
+			sBeautiful[i][j] = 10000000;
+			sGreen[i][j] = 10000000;
+		}
+	}
+
+
+	p = new Array(150);
+	for (var i = 0; i < points.length; i++) {
+		p[i] = points[i].id;
+	}
+	//存储点信息
+
+	for (var i = 0; i < sides.length; i++) {
+		var j, k;
+		j = findId(sides[i].point1);
+		k = findId(sides[i].point2);
+		sLength[j][k] = sides[i].length;
+		sBeautiful[j][k] = sides[i].length;
+		sGreen[j][k] = sides[i].length;
+		sLength[k][j] = sides[i].length;
+		sBeautiful[k][j] = sides[i].length;
+		sGreen[k][j] = sides[i].length;
+	}
+	//存储路径,无向网
+}
+
+var pathFlag = 0; //标记路径搜索是否打开
 var pathL = document.getElementsByClassName("shape")[0];
 pathL.addEventListener("click", function(e) {
+	pathFlag = 1;
+	var searchPath = document.getElementsByClassName("searchPath");
 	var search = document.getElementsByClassName("search")[0];
 	var search_path = document.getElementsByClassName("search_path")[0];
 	var name = document.getElementsByClassName("name")[0];
 	var oo = document.getElementsByClassName("oo")[0];
 	var search_ans = document.getElementsByClassName("search_ans")[0];
 
+	searchPath[0].value = "";
+	searchPath[0].placeholder = "输入起点或在地图上选点";
+	searchPath[1].value = "";
+	searchPath[1].placeholder = "输入终点";
 	search.style.maxHeight = "0px";
 	search_path.style.maxHeight = "100px";
 	name.style.maxHeight = "0px";
@@ -392,6 +468,7 @@ pathL.addEventListener("click", function(e) {
 })
 var closeL = document.getElementsByClassName("back")[0];
 closeL.addEventListener("click", function(e) {
+	pathFlag = 0;
 	var search = document.getElementsByClassName("search")[0];
 	var search_path = document.getElementsByClassName("search_path")[0];
 	var name = document.getElementsByClassName("name")[0];
@@ -411,3 +488,124 @@ closeL.addEventListener("click", function(e) {
 	type.innerHTML = "";
 	searchPoint.value = "";
 })
+
+
+function pathab(arr, point1, point2) {
+	return arr[point1][point2];
+}
+
+Path.prototype = {
+	findPath: function(arr, id2, id1) {
+		var djs = new Array(150);
+		for (var i = 0; i < p.length; i++) {
+			djs[i] = {
+				style: 0,
+			};
+		}
+
+		djs[findId(id1)] = {
+			style: 2,
+			length: 0,
+			parent: null,
+		};
+
+		for (var k = 0; k < p.length - 1; k++) {
+			var mmin = 1000000000;
+			var mmp = -1;
+			for (var i = 0; i < p.length; i++) {
+				if (djs[i].style == 0) {
+					var min = pathab(arr, findId(id1), i);
+					djs[i].parent = findId(id1);
+					for (var j = 0; j < p.length; j++) {
+						if (djs[j].style == 1) {
+							min = pathab(arr, j, i) < min ? (pathab(arr, j, i), djs[i].parent = j) : min;
+						}
+					}
+					djs[i].length = min;
+					if (min < mmin) {
+						mmin = min;
+						mmp = i;
+					}
+				}
+			}
+			if (mmp == findId(id2)) {
+				var back = [];
+				for (; mmp != findId(id1); mmp = djs[mmp].parent) {
+					back.push(p[mmp]);
+				}
+				back.push(id1);
+				return back;
+			}
+			djs[mmp].style = 1;
+		}
+	}
+}
+
+function Path(id1, id2) {
+	this.point1 = id1;
+	this.point2 = id2;
+}
+createPath(); //启动后生成ajax文件
+//console.log(Path.prototype.findPath(sLength,6,5))、、查路
+
+
+
+//路径搜索的js部分
+var start = document.getElementsByClassName("start")[0].children[0];
+var end = document.getElementsByClassName("end")[0].children[0];
+
+start.addEventListener("focus", function() {
+	pathFlag = 1;
+	start.placeholder = "输入起点或在地图上选点";
+	end.placeholder = "输入终点";
+	fint_timer = setInterval(function() {
+		var list = document.getElementsByClassName('search_ans')[0];
+		list.style.maxHeight = "500px";
+		showans(find(start.value));
+	}, 500)
+})
+start.addEventListener("blur", function() {
+	clearInterval(fint_timer);
+	var list = document.getElementsByClassName('search_ans')[0];
+	list.style.maxHeight = "0px";
+})
+end.addEventListener("focus", function() {
+	pathFlag = 2;
+	start.placeholder = "输入起点";
+	end.placeholder = "输入终点或在地图上选点";
+	fint_timer = setInterval(function() {
+		var list = document.getElementsByClassName('search_ans')[0];
+		list.style.maxHeight = "500px";
+		showans(find(end.value));
+	}, 500)
+})
+end.addEventListener("blur", function() {
+	clearInterval(fint_timer);
+	var list = document.getElementsByClassName('search_ans')[0];
+	list.style.maxHeight = "0px";
+})
+
+//搜索搜索文本框
+
+
+var turn = document.getElementsByClassName('turn')[0];
+turn.addEventListener("click", function() {
+	var change = start.value;
+	start.value = end.value;
+	end.value = change;
+})
+//上下位置交换
+
+var buttonTo = document.getElementsByClassName('button_to')[0];
+var buttonFrom = document.getElementsByClassName('button_from')[0];
+
+buttonTo.addEventListener('click',function(){
+	
+})
+
+buttonFrom.addEventListener('click',function(){
+	
+})
+
+
+

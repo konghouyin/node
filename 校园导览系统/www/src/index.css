@@ -364,6 +364,7 @@ body {
 .search_path .back{
 	background-position:9px -32px;
 }
+.search_path .turn:hover,
 .search_path .back:hover,
 .search_path .search_button:hover{
 	cursor: pointer;
