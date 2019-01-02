@@ -418,16 +418,17 @@ function createPath(obj) {
 	sLength = new Array();
 	sBeautiful = new Array();
 	sGreen = new Array();
+	num = points.length;
 
-	for (var i = 0; i < 150; i++) {
-		sLength.push(new Array(150));
-		sBeautiful.push(new Array(150));
-		sGreen.push(new Array(150));
+	for (var i = 0; i < num; i++) {
+		sLength.push(new Array(num));
+		sBeautiful.push(new Array(num));
+		sGreen.push(new Array(num));
 	}
 	//建立二维数组
 
-	for (var i = 0; i < 150; i++) {
-		for (var j = 0; j < 150; j++) {
+	for (var i = 0; i < num; i++) {
+		for (var j = 0; j < num; j++) {
 			sLength[i][j] = 10000000;
 			sBeautiful[i][j] = 10000000;
 			sGreen[i][j] = 10000000;
@@ -435,7 +436,7 @@ function createPath(obj) {
 	}
 
 
-	p = new Array(150);
+	p = new Array(num);
 	for (var i = 0; i < points.length; i++) {
 		p[i] = points[i].id;
 	}
@@ -507,50 +508,6 @@ function pathab(arr, point1, point2) {
 }
 
 Path.prototype = {
-	// 	findPath: function(arr, id2, id1) {
-	// 		var djs = new Array(150);
-	// 		for (var i = 0; i < p.length; i++) {
-	// 			djs[i] = {
-	// 				style: 0,
-	// 			};
-	// 		}
-	// 
-	// 		djs[findId(id1)] = {
-	// 			style: 2,
-	// 			length: 0,
-	// 			parent: null,
-	// 		};
-	// 
-	// 		for (var k = 0; k < p.length - 1; k++) {
-	// 			var mmin = 1000000000;
-	// 			var mmp = -1;
-	// 			for (var i = 0; i < p.length; i++) {
-	// 				if (djs[i].style == 0) {
-	// 					var min = pathab(arr, findId(id1), i);
-	// 					djs[i].parent = findId(id1);
-	// 					for (var j = 0; j < p.length; j++) {
-	// 						if (djs[j].style == 1) {
-	// 							min = pathab(arr, j, i) < min ? (pathab(arr, j, i), djs[i].parent = j) : min;
-	// 						}
-	// 					}
-	// 					djs[i].length = min;
-	// 					if (min < mmin) {
-	// 						mmin = min;
-	// 						mmp = i;
-	// 					}
-	// 				}
-	// 			}
-	// 			if (mmp == findId(id2)) {
-	// 				var back = [];
-	// 				for (; mmp != findId(id1); mmp = djs[mmp].parent) {
-	// 					back.push(p[mmp]);
-	// 				}
-	// 				back.push(id1);
-	// 				return back;
-	// 			}
-	// 			djs[mmp].style = 1;
-	// 		}
-	// 	}
 	findPath: function(arr, id2, id1) {
 		var djs = new Array(150);
 		for (var i = 0; i < p.length; i++) {
@@ -576,10 +533,11 @@ Path.prototype = {
 					var min = djs[i].length;
 					min = pathab(arr, j, i) + djs[j].length < min ? (djs[i].parent = j, pathab(arr, j, i) + djs[j].length) : min;
 					djs[i].length = min;
-				}
-				if (min < mmin) {
-					mmin = min;
-					mmp = i;
+				
+					if (min <= mmin) {//一定为最小值，否则，会陷入0错误
+						mmin = min;
+						mmp = i;
+					}
 				}
 			}
 			j = mmp;
@@ -825,7 +783,7 @@ searchButton.addEventListener('click', function() {
 
 	var line = Path.prototype.findPath(sLength, list[0], list[1]);
 	console.log(line);
-	if (line == undefined) {
+	if (line.length == 2 && sLength[findId(line[0])][findId(line[1])]>500000) {
 		try {
 			var n = document.getElementsByClassName('nnode');
 			var length = n.length;
