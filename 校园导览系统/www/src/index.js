@@ -155,6 +155,15 @@ var sides = [{
 		green: 0,
 		path: ""
 	},
+	{
+		id: 3,
+		point1: 5,
+		point2: 2,
+		length: 527,
+		beautiful: 4,
+		green: 0,
+		path: ""
+	},
 
 ];
 
@@ -285,6 +294,7 @@ function Point() {
 
 }
 //设置共享对象常见，为节点添加提供准备
+
 
 var clickEvent = document.getElementsByClassName('map')[0];
 clickEvent.addEventListener('click', function(e) {
@@ -479,7 +489,7 @@ closeL.addEventListener("click", function(e) {
 	var type = document.getElementsByClassName("type")[0];
 	var name1 = document.getElementById("name");
 	var wrong = document.getElementsByClassName('wrong')[0];
-	wrong.style.maxHeight="0px";
+	wrong.style.maxHeight = "0px";
 
 	search.style.maxHeight = "50px";
 	search_path.style.maxHeight = "0px";
@@ -497,11 +507,57 @@ function pathab(arr, point1, point2) {
 }
 
 Path.prototype = {
+	// 	findPath: function(arr, id2, id1) {
+	// 		var djs = new Array(150);
+	// 		for (var i = 0; i < p.length; i++) {
+	// 			djs[i] = {
+	// 				style: 0,
+	// 			};
+	// 		}
+	// 
+	// 		djs[findId(id1)] = {
+	// 			style: 2,
+	// 			length: 0,
+	// 			parent: null,
+	// 		};
+	// 
+	// 		for (var k = 0; k < p.length - 1; k++) {
+	// 			var mmin = 1000000000;
+	// 			var mmp = -1;
+	// 			for (var i = 0; i < p.length; i++) {
+	// 				if (djs[i].style == 0) {
+	// 					var min = pathab(arr, findId(id1), i);
+	// 					djs[i].parent = findId(id1);
+	// 					for (var j = 0; j < p.length; j++) {
+	// 						if (djs[j].style == 1) {
+	// 							min = pathab(arr, j, i) < min ? (pathab(arr, j, i), djs[i].parent = j) : min;
+	// 						}
+	// 					}
+	// 					djs[i].length = min;
+	// 					if (min < mmin) {
+	// 						mmin = min;
+	// 						mmp = i;
+	// 					}
+	// 				}
+	// 			}
+	// 			if (mmp == findId(id2)) {
+	// 				var back = [];
+	// 				for (; mmp != findId(id1); mmp = djs[mmp].parent) {
+	// 					back.push(p[mmp]);
+	// 				}
+	// 				back.push(id1);
+	// 				return back;
+	// 			}
+	// 			djs[mmp].style = 1;
+	// 		}
+	// 	}
 	findPath: function(arr, id2, id1) {
 		var djs = new Array(150);
 		for (var i = 0; i < p.length; i++) {
 			djs[i] = {
+				length: 100000000,
 				style: 0,
+				parent: findId(id1)
 			};
 		}
 
@@ -511,25 +567,22 @@ Path.prototype = {
 			parent: null,
 		};
 
+		var j = findId(id1);
 		for (var k = 0; k < p.length - 1; k++) {
 			var mmin = 1000000000;
 			var mmp = -1;
 			for (var i = 0; i < p.length; i++) {
 				if (djs[i].style == 0) {
-					var min = pathab(arr, findId(id1), i);
-					djs[i].parent = findId(id1);
-					for (var j = 0; j < p.length; j++) {
-						if (djs[j].style == 1) {
-							min = pathab(arr, j, i) < min ? (pathab(arr, j, i), djs[i].parent = j) : min;
-						}
-					}
+					var min = djs[i].length;
+					min = pathab(arr, j, i) + djs[j].length < min ? (djs[i].parent = j, pathab(arr, j, i) + djs[j].length) : min;
 					djs[i].length = min;
-					if (min < mmin) {
-						mmin = min;
-						mmp = i;
-					}
+				}
+				if (min < mmin) {
+					mmin = min;
+					mmp = i;
 				}
 			}
+			j = mmp;
 			if (mmp == findId(id2)) {
 				var back = [];
 				for (; mmp != findId(id1); mmp = djs[mmp].parent) {
@@ -561,7 +614,7 @@ start.addEventListener("focus", function() {
 	start.placeholder = "输入起点或在地图上选点";
 	end.placeholder = "输入终点";
 	var wrong = document.getElementsByClassName('wrong')[0];
-	wrong.style.maxHeight="0px";
+	wrong.style.maxHeight = "0px";
 	fint_timer = setInterval(function() {
 		var list = document.getElementsByClassName('search_ans')[0];
 		list.style.maxHeight = "500px";
@@ -578,7 +631,7 @@ end.addEventListener("focus", function() {
 	start.placeholder = "输入起点";
 	end.placeholder = "输入终点或在地图上选点";
 	var wrong = document.getElementsByClassName('wrong')[0];
-	wrong.style.maxHeight="0px";
+	wrong.style.maxHeight = "0px";
 	fint_timer = setInterval(function() {
 		var list = document.getElementsByClassName('search_ans')[0];
 		list.style.maxHeight = "500px";
@@ -603,14 +656,14 @@ turn.addEventListener("click", function() {
 //上下位置交换
 
 var buttonPath = document.getElementsByClassName('name')[0];
-buttonPath.addEventListener('click',function(e){
+buttonPath.addEventListener('click', function(e) {
 	var flag = 1;
 	var nameid = document.getElementById('name');
-	if(nameid.innerHTML=="可以在地图上选择点"||nameid.innerHTML=="请在备选列表中选择"){
+	if (nameid.innerHTML == "可以在地图上选择点" || nameid.innerHTML == "请在备选列表中选择") {
 		flag = 0;
 	}
-		 
-	if(e.path[0].className=="button_from"){
+
+	if (e.path[0].className == "button_from") {
 		pathFlag = 2;
 		var searchPath = document.getElementsByClassName("searchPath");
 		var search = document.getElementsByClassName("search")[0];
@@ -618,9 +671,9 @@ buttonPath.addEventListener('click',function(e){
 		var name = document.getElementsByClassName("name")[0];
 		var oo = document.getElementsByClassName("oo")[0];
 		var search_ans = document.getElementsByClassName("search_ans")[0];
-		if(flag==1){
+		if (flag == 1) {
 			searchPath[0].value = nameid.innerHTML;
-		}else{
+		} else {
 			searchPath[0].value = "";
 		}
 		searchPath[0].placeholder = "输入起点";
@@ -631,9 +684,9 @@ buttonPath.addEventListener('click',function(e){
 		name.style.maxHeight = "0px";
 		oo.style.maxHeight = "0px";
 		search_ans.style.maxHeight = "0px";
-		
-	}else if(e.path[0].className=="button_to"){
-		
+
+	} else if (e.path[0].className == "button_to") {
+
 		pathFlag = 1;
 		var searchPath = document.getElementsByClassName("searchPath");
 		var search = document.getElementsByClassName("search")[0];
@@ -641,12 +694,12 @@ buttonPath.addEventListener('click',function(e){
 		var name = document.getElementsByClassName("name")[0];
 		var oo = document.getElementsByClassName("oo")[0];
 		var search_ans = document.getElementsByClassName("search_ans")[0];
-		
+
 		searchPath[0].value = "";
 		searchPath[0].placeholder = "输入起点或在地图上选点";
-		if(flag==1){
+		if (flag == 1) {
 			searchPath[1].value = nameid.innerHTML;
-		}else{
+		} else {
 			searchPath[1].value = "";
 		}
 		searchPath[1].placeholder = "输入终点";
@@ -658,73 +711,140 @@ buttonPath.addEventListener('click',function(e){
 	}
 })
 
-function findTrue(name1,name2){
+function findTrue(name1, name2) {
 	var back = new Array(2);
-	for(each in points){
-		if(points[each].name == name1){
-			back[0]=points[each].id;
+	for (each in points) {
+		if (points[each].name == name1) {
+			back[0] = points[each].id;
 		}
-		if(points[each].name == name2){
-			back[1]=points[each].id;
+		if (points[each].name == name2) {
+			back[1] = points[each].id;
 		}
 	}
 	return back;
 }
 //根据名称查询，对应id
-
-function showWrong(id1,id2){
+function showWrong(id1, id2) {
 	var wrong = document.getElementsByClassName('wrong')[0];
-	wrong.style.maxHeight="200px";
+	wrong.style.maxHeight = "200px";
 	wrong.children[1].children[0].children[0].innerHTML = start.value;
 	wrong.children[1].children[1].children[0].innerHTML = end.value;
-	if(id1==undefined){
+	if (id1 == undefined) {
 		wrong.children[1].children[0].classList.remove("cheng");
 		wrong.children[1].children[0].classList.add("bai");
-	}else{
+	} else {
 		wrong.children[1].children[0].classList.remove("bai");
 		wrong.children[1].children[0].classList.add("cheng");
 	}
-	
-	if(id2==undefined){
+
+	if (id2 == undefined) {
 		wrong.children[1].children[1].classList.remove("cheng");
 		wrong.children[1].children[1].classList.add("bai");
-	}else{
+	} else {
 		wrong.children[1].children[1].classList.remove("bai");
 		wrong.children[1].children[1].classList.add("cheng");
 	}
 }
 //显示错误
 
+function showNoPath(i) {
+	var pthing = document.getElementsByClassName('pthing');
+	var node = document.createElement('div');
+	node.setAttribute("class", "nnode");
+	node.innerHTML = "没有通路";
+	pthing[i].appendChild(node);
+}
+function findName(id){
+	for (var each in points) {
+		if (points[each].id == id) {
+			return points[each].name;
+		}
+	}
+}
+
+function showPathLength(id1,id2,i){
+	var pthing = document.getElementsByClassName("pthing")[i];
+	for(var each in sides){
+		if(sides[each].point1==id1&&sides[each].point2==id2){
+			var snode = document.createElement('div');
+			snode.setAttribute("class", "snode");
+			snode.innerHTML = findName(sides[each].point1);
+			pthing.children[1].appendChild(snode);
+			//绘图---------------------------------------------------------------
+			return sides[each].length;
+		}
+		if(sides[each].point2==id1&&sides[each].point1==id2){
+			var snode = document.createElement('div');
+			snode.setAttribute("class", "snode");
+			snode.innerHTML = findName(sides[each].point1);
+			pthing.children[1].appendChild(snode);
+			//绘图------------------------------------------------------------
+			return sides[each].length;
+		}
+	}
+}
+
+function showPath(arr,s) {
+	var pthing = document.getElementsByClassName('pthing')[s];
+	var node = document.createElement('div');
+	node.setAttribute("class", "nnode");
+	var length = 0
+	for(var i=0;i<arr.length-1;i++){
+		length+=showPathLength(arr[i],arr[i+1],s);
+	}
+	
+	var snode = document.createElement('div');
+	snode.setAttribute("class", "snode");
+	snode.innerHTML = findName(arr[arr.length-1]);
+	pthing.children[1].appendChild(snode);
+	//添加最后一个元素
+	
+	node.innerHTML = "路径总长度："+length;
+	pthing.appendChild(node);
+}
+
 var searchButton = document.getElementsByClassName('search_button')[0];
-searchButton.addEventListener('click',function(){
-	var list = findTrue(start.value,end.value);
+searchButton.addEventListener('click', function() {
+	var list = findTrue(start.value, end.value);
 	var wrong = document.getElementsByClassName('wrong')[0];
-	if(start.value == "" || end.value== ""){
-		wrong.children[0].innerHTML = "请选择准确的起点或终点";		
-		showWrong(list[0],list[1]);
-		return ;
-	}
-	if(start.value == end.value){
-		wrong.children[0].innerHTML = "请选择不同的起点或终点";
-		showWrong(undefined,undefined);
-		return;
-	}
-	if(list[0] == undefined || list[1] == undefined){
+	if (start.value == "" || end.value == "") {
 		wrong.children[0].innerHTML = "请选择准确的起点或终点";
-		showWrong(list[0],list[1]);
+		showWrong(list[0], list[1]);
 		return;
 	}
-	console.log(Path.prototype.findPath(sLength,list[0],list[1]));
-	console.log(Path.prototype.findPath(sBeautiful,list[0],list[1]));
-	console.log(Path.prototype.findPath(sGreen,list[0],list[1]));
-	
-	
+	if (start.value == end.value) {
+		wrong.children[0].innerHTML = "请选择不同的起点或终点";
+		showWrong(undefined, undefined);
+		return;
+	}
+	if (list[0] == undefined || list[1] == undefined) {
+		wrong.children[0].innerHTML = "请选择准确的起点或终点";
+		showWrong(list[0], list[1]);
+		return;
+	}
+
+	var line = Path.prototype.findPath(sLength, list[0], list[1]);
+	console.log(line);
+	if (line == undefined) {
+		try {
+			var n = document.getElementsByClassName('nnode');
+			var length = n.length;
+			while (length--) {
+				n[0].remove();
+			}
+		} catch (e) {}
+		showNoPath(0);
+		showNoPath(1);
+		showNoPath(2);
+	} else {
+		showPath(line, 0);
+		showPath(Path.prototype.findPath(sBeautiful, list[0], list[1]), 1);
+		showPath(Path.prototype.findPath(sGreen, list[0], list[1]), 2);
+	}
+
+
 	//进入计算
-	
+
 })
 
 //长度
-
-
-
-

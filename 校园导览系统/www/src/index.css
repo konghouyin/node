@@ -358,7 +358,7 @@ body {
 .search_path .back,
 .search_path .search_button {
 	width: 50px;
-	height: 40px;
+	height: 43px;
 	background-image: url(pic/shapeall.png);
 	background-size: 100%;
 	background-position: 0 -65px;
@@ -457,11 +457,11 @@ body {
 	content: "";
 	display: block;
 	position: absolute;
-	width:30px;
+	width: 30px;
 	height: 30px;
 	background-image: url(pic/tf.gif);
-	top:5px;
-	left:5px;
+	top: 5px;
+	left: 5px;
 	background-position: 27px 0;
 }
 
@@ -470,13 +470,62 @@ body {
 	color: #FA8722;
 	background-color: #fffcf5;
 }
+
 .bai:before {
 	content: "";
 	display: block;
 	position: absolute;
-	width:30px;
+	width: 30px;
 	height: 30px;
 	background-image: url(pic/tf.gif);
-	top:5px;
-	left:5px;
+	top: 5px;
+	left: 5px;
+}
+
+.right .path_ans {
+	background-color: #fff;
+	max-height: 500px;
+	overflow: hidden;
+	transition: all 0.5s ease-in-out;
+	border-top: 2px solid #ccc;
+}
+
+.right .path_ans .thing {
+	margin: 20px;
+}
+
+.right .path_ans .thing:hover {
+	cursor: pointer;
+}
+
+.right .path_ans .tittle {
+	font-size: 18px;
+	color: #888;
+	position: relative;
+}
+.right .path_ans .tittle:after{
+	content: "";
+	display: block;
+	position: absolute;
+	width: 16px;
+	height: 9px;
+	top: 15px;
+	right: 19px;
+	background-image: url(pic/gt.png);
+}
+
+.path_ans .pthing{
+	margin: 10px 20px;
+}
+.path_ans .pthing:hover{
+	cursor: pointer;
+}
+
+.pthing .nnode {
+	color: #333;
+	font-size: 16px;
+	padding: 10px;
+}
+.snode {
+    padding: 7px 25px;
 }
