@@ -13,7 +13,7 @@ ajax({
 }); */
 
 function Ajax(object) {
-    xhr = new XMLHttpRequest();
+    var xhr = new XMLHttpRequest();
 	xhr.withCredentials = true;//携带cookie
     var message = getParmer(object.data);
     xhr.onreadystatechange = function () {

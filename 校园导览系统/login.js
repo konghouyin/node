@@ -48,7 +48,7 @@ server.use('/login',function(req,res){
 			var dec = decipher.update(ss, 'hex', 'utf8'); //编码方式从hex转为utf-8;
 			dec += decipher.final('utf8'); //编码方式从utf-8;
 		}catch(e){
-			res.write(JSON.stringify({msg:"登录异常!" ,style:0,url:"http://127.0.0.1:8851/%E6%A0%A1%E5%9B%AD%E5%AF%BC%E8%A7%88%E7%B3%BB%E7%BB%9F/www/login.html"}));
+			res.write(JSON.stringify({msg:"登录异常!" ,style:0,url:"http://localhost:8080/login.html"}));
 			res.end();
 			return ;
 		}
@@ -63,14 +63,14 @@ server.use('/login',function(req,res){
 		if(timeNow-out[2]<10000){
 			passRepeate(obj,req,res)
 		}else{
-			res.write(JSON.stringify({msg:"登录跳转超时!" ,style:0,url:"http://localhost:8081/p.html"}));
+			res.write(JSON.stringify({msg:"登录跳转超时!" ,style:0,url:"http://localhost:8080/login.html"}));
 			res.end();
 		}
 	})
 })
 //登录
 
-server.listen(8082);
+server.listen(8083);
 
 function passRepeate(obj,req,res){
 	console.log(obj);

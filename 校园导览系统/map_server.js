@@ -43,7 +43,6 @@ server.use('/map', function(req, res) {
 					} else {
 						
 						for (var i = 0; i < data.length; i++) {
-							console.log(data[i].message);
 							var n = JSON.parse(data[i].message);
 							n.id = data[i].id;
 							back.sides.push(n);

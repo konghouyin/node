@@ -24,18 +24,12 @@ server.use(cookies({
 
 server.all('*', function(req, res, next) {
 	// console.log(req.headers);
-    res.header("Access-Control-Allow-Origin", 'http://127.0.0.1:8851'); //需要显示设置来源
+    res.header("Access-Control-Allow-Origin", 'http://localhost:8080'); //需要显示设置来源
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
     res.header("Access-Control-Allow-Credentials",true); //带cookies7     res.header("Content-Type", "application/json;charset=utf-8");
     next();
 });
-
-server.use('/p.html',function(req,res){
-	console.log('asd');
-	res.writeHead(302, {'Location': 'http://127.0.0.1:8848/try/www/index.html'});
-	res.end();
-})
 
 server.use('/login',function(req,res){
 	var obj = {};
@@ -74,7 +68,6 @@ server.use('/maile',function(req,res){
 			res.end();
 		}
 	})
-	
 })
 //邮箱验证
 
@@ -247,7 +240,11 @@ function passRepeate(obj,res){
 					console.log(cookieSend+"--->"+enc)//输出加密后结果
 					
 					res.cookie('pbl',enc,{path:'/',maxAge:8*1000,signed:true});
-					res.write(JSON.stringify({msg:"登录成功！",style:1,url:"http://127.0.0.1:8851/%E6%A0%A1%E5%9B%AD%E5%AF%BC%E8%A7%88%E7%B3%BB%E7%BB%9F/www/index.html"}));
+					if(data[0].style==1){
+						res.write(JSON.stringify({msg:"登录成功！",style:1,url:"http://localhost:8080/index.html"}));
+					}else{
+						res.write(JSON.stringify({msg:"登录成功！",style:1,url:"http://localhost:8080/manage.html"}));
+					}
 					res.end();
 					return;
 				}
