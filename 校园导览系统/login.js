@@ -22,7 +22,7 @@ server.use(cookies({
 
 server.all('*', function(req, res, next) {
 	// console.log(req.headers);
-    res.header("Access-Control-Allow-Origin", 'http://127.0.0.1:8851'); //需要显示设置来源
+    res.header("Access-Control-Allow-Origin", 'http://localhost:8080'); //需要显示设置来源
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
     res.header("Access-Control-Allow-Credentials",true); //带cookies7     res.header("Content-Type", "application/json;charset=utf-8");

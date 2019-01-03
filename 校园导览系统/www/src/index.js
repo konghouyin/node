@@ -1,175 +1,3 @@
-var points = [{
-		id: 1,
-		positionX: 650,
-		positionY: 620,
-		style: "景观",
-		small: "jingguan",
-		level: 1.3,
-		name: "喷泉广场",
-		img: ["http://english.xupt.edu.cn/images/13/07/10/ti1gatucb1/13fc7c83a14.jpg",
-			"http://imgsrc.baidu.com/forum/w%3D580/sign=f32f28adb812c8fcb4f3f6c5cc0292b4/5c95d739b6003af3bb2386ed342ac65c1138b66c.jpg",
-			"https://cdn.applysquare.net/storage/tmp/qa/Nat1TiFk3/NastU8eoT.png",
-			"http://english.xupt.edu.cn/images/13/07/10/ti1gatucb1/13fc7c83a14.jpg",
-			"http://imgsrc.baidu.com/forum/w%3D580/sign=f32f28adb812c8fcb4f3f6c5cc0292b4/5c95d739b6003af3bb2386ed342ac65c1138b66c.jpg",
-			"https://cdn.applysquare.net/storage/tmp/qa/Nat1TiFk3/NastU8eoT.png",
-			"http://english.xupt.edu.cn/images/13/07/10/ti1gatucb1/13fc7c83a14.jpg",
-			"http://imgsrc.baidu.com/forum/w%3D580/sign=f32f28adb812c8fcb4f3f6c5cc0292b4/5c95d739b6003af3bb2386ed342ac65c1138b66c.jpg",
-		],
-		text: "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;景观位于西安邮电大学长安校区西区北门，是西邮著名地标，由象征邮政的鸽子雕像，和象征电子技术的抽象雕像组成，除此之外还配有喷泉，同学们戏称为水煮鸽子。",
-		message: [{
-				name: "风过无痕",
-				thing: "各大社团集合地点",
-				time: "2018-12-29"
-			},
-			{
-				name: "搞事情",
-				thing: "喷泉感觉没咋开过，好像只有开学开过一次",
-				time: "2018-12-30"
-			},
-			{
-				name: "北方的落叶",
-				thing: "地方挺大，圆形的，不错不错，适合毕业合影",
-				time: "2018-12-30"
-			},
-			{
-				name: "划水王",
-				thing: "无意义水贴，水贴，水贴，水贴，水贴，水贴，水贴，水贴，水贴，水贴，水贴，水贴，水贴，水贴，水贴，水贴，水贴，水贴，水贴，水贴，水贴，水贴，水贴，水贴，水贴，水贴，水贴，水贴！！！",
-				time: "2018-12-30"
-			},
-		]
-	},
-	{
-		id: 2,
-		positionX: 550,
-		positionY: 200,
-		style: "体育",
-		small: "tiyu",
-		level: 1,
-		name: "大操场",
-		img: [],
-		text: "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;大型室外活动的场所，运动会，军训等。有一个足球场和400m跑道。",
-		message: [{
-			name: "长安通",
-			thing: "我要踢球",
-			time: "2018-12-29"
-		}]
-	},
-	{
-		id: 3,
-		positionX: 250,
-		positionY: 600,
-		style: "教育",
-		level: 1,
-		small: "xue",
-		name: "逸夫楼",
-		img: [],
-		text: "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;西安邮电大学东区，教学楼，是计算机学院，数字艺术传媒学院，研究生的上课和实验场所。也是3G实验室的所在地！！！",
-		message: [{
-			name: "offer",
-			thing: "3G--nb",
-			time: "2018-12-29"
-		}]
-	},
-	{
-		id: 4,
-		positionX: 620,
-		positionY: 230,
-		style: "体育",
-		level: 1.3,
-		small: "tiyu",
-		name: "体育馆",
-		img: [],
-		text: "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;西安邮电大学体育场，内设有排球场地，篮球场地，乒乓球，羽毛球。每年迎新杯比赛在这里举行",
-		message: [{
-				name: "羽协",
-				thing: "场地要是能随时使用就好",
-				time: "2018-12-30"
-			},
-			{
-				name: "健身达人",
-				thing: "能不能增加一些健身器械",
-				time: "2018-12-29"
-			}
-		]
-	},
-	{
-		id: 5,
-		positionX: 650,
-		positionY: 740,
-		style: "基础设施",
-		level: 1,
-		small: "men",
-		name: "北门",
-		img: [],
-		text: "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;西邮正门，最大的门",
-		message: [{
-				name: "pp",
-				thing: "哈哈，够大。",
-				time: "2018-12-30"
-			},
-			{
-				name: "9277",
-				thing: "是个门",
-				time: "2018-12-29"
-			}
-		]
-	},
-	{
-		id: 6,
-		positionX: 660,
-		positionY: 400,
-		style: "教育",
-		level: 1,
-		small: "xue",
-		name: "图书馆",
-		img: [],
-		text: "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;西安邮电大学图书馆，有很多藏书",
-		message: [{
-				name: "ppop",
-				thing: "MySQL必知必会借不到。",
-				time: "2018-12-30"
-			},
-			{
-				name: "学",
-				thing: "书普遍偏旧",
-				time: "2018-12-29"
-			}
-		]
-	}
-];
-var sides = [{
-		id: 1,
-		point1: 1,
-		point2: 6,
-		length: 292,
-		beautiful: 8,
-		green: 0,
-		path: "'circle',660, 340,520,370, 515, 470"
-	},
-	{
-		id: 2,
-		point1: 5,
-		point2: 1,
-		length: 127,
-		beautiful: 4,
-		green: 0,
-		path: ""
-	},
-	{
-		id: 3,
-		point1: 5,
-		point2: 2,
-		length: 527,
-		beautiful: 4,
-		green: 0,
-		path: ""
-	},
-
-];
-
-
-var paths = [];
-
 
 function showall(level) {
 	for (each in points) {
@@ -445,6 +273,7 @@ function createPath(obj) {
 		var j, k;
 		j = findId(sides[i].point1);
 		k = findId(sides[i].point2);
+		console.log(sides[i].length,j,k);
 		sLength[j][k] = sides[i].length;
 		sBeautiful[j][k] = sides[i].length;
 		sGreen[j][k] = sides[i].length;
@@ -492,6 +321,11 @@ closeL.addEventListener("click", function(e) {
 	pathAns.style.maxHeight = "0px";
 	var wrong = document.getElementsByClassName('wrong')[0];
 	wrong.style.maxHeight = "0px";
+	
+	var canvas = document.getElementById("path");
+	var context = canvas.getContext("2d");
+	context.clearRect(0, 0, 1100, 800);
+	//清除画布
 
 	search.style.maxHeight = "50px";
 	search_path.style.maxHeight = "0px";
@@ -560,8 +394,6 @@ function Path(id1, id2) {
 	this.point1 = id1;
 	this.point2 = id2;
 }
-createPath(); //启动后生成ajax文件--------------------------------------
-
 
 //路径搜索的js部分
 var start = document.getElementsByClassName("start")[0].children[0];
@@ -727,20 +559,15 @@ function showNoPath(i) {
 function showPathLength(id1,id2,i){
 	var pthing = document.getElementsByClassName("pthing")[i];
 	for(var each in sides){
-		if(sides[each].point1==id1&&sides[each].point2==id2){
+		if((sides[each].point1==id1&&sides[each].point2==id2)||(sides[each].point2==id1&&sides[each].point1==id2)){
 			var snode = document.createElement('div');
 			snode.setAttribute("class", "snode");
 			snode.innerHTML = findName(id1);
 			pthing.children[1].appendChild(snode);
+			for(var a in sides[each].path){
+				eval("canvas_path("+ sides[each].path[a] +")");
+			}
 			//绘图---------------------------------------------------------------
-			return sides[each].length;
-		}
-		if(sides[each].point2==id1&&sides[each].point1==id2){
-			var snode = document.createElement('div');
-			snode.setAttribute("class", "snode");
-			snode.innerHTML = findName(id1);
-			pthing.children[1].appendChild(snode);
-			//绘图------------------------------------------------------------
 			return sides[each].length;
 		}
 	}
@@ -787,7 +614,12 @@ searchButton.addEventListener('click', function() {
 	
 	var pathAns = document.getElementsByClassName('path_ans')[0];
 	pathAns.style.maxHeight = "500px";
-
+	
+	var canvas = document.getElementById("path");
+	var context = canvas.getContext("2d");
+	context.clearRect(0, 0, 1100, 800);
+	//清除画布
+	
 	var line = Path.prototype.findPath(sLength, list[0], list[1]);
 	console.log(line);
 	if (line.length == 2 && sLength[findId(line[0])][findId(line[1])]>500000) {
