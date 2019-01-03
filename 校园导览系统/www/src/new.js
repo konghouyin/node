@@ -24,3 +24,4 @@ Ajax({
 		},
 		fail: wrong,
 })
+//问题：没有分后台身份验证,拿到用户session,相当于拿到管理员session.

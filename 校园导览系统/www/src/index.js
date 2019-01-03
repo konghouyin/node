@@ -126,7 +126,8 @@ function Point() {
 
 var clickEvent = document.getElementsByClassName('map')[0];
 clickEvent.addEventListener('click', function(e) {
-	if (e.path.length == 7) {
+	console.log(e);
+	if (e.path[0].classList[0]=="content") {
 		for (each in points) {
 			if (points[each].id == e.path[0].point) {
 				Point.prototype.click(points[each]);
@@ -218,7 +219,8 @@ function find(keyWord) {
 //字符串方法indexOf，模糊搜索
 
 document.getElementsByClassName("search_ans")[0].addEventListener("click", function(e) {
-	if (e.path.length == 7) {
+	console.log(e);
+	if (e.path[0].classList[0] == "node") {
 		for (each in points) {
 			if (points[each].id == e.path[0].point) {
 				Point.prototype.click(points[each]);

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>导航管理页面</title>
+		<script src="src/Ajax.js" type="text/javascript" charset="utf-8"></script>
+		<script src="src/new.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="icon" href="./src/pic/index.ico" type="image/x-icon">
+		<link rel="stylesheet" type="text/css" href="src/index.css" />
+		<link rel="stylesheet" type="text/css" href="src/reset.css" />
+		<link rel="stylesheet" type="text/css" href="src/manage.css" />
+	</head>
+	<body>
+		<div class="top">
+			<div class="logo"></div>
+			<div class="tittle">校园导览系统管理界面</div>
+			<div class="yulan">预览</div>
+		</div>
+		<div class="message">
+			<div class="searchs">
+				<div class="point">
+					<div class="ttpye">景点</div>
+					<div class="tthing"></div>
+				</div>
+				<div class="side">
+					<div class="ttpye">道路</div>
+					<div class="tthing"></div>
+				</div>
+			</div>
+			<div class="change">
+				<div class="change_point"></div>
+				<div class="change_side"></div>
+			</div>
+		</div>
+		<div class="yulanshow">
+			<div class="right">
+				<div class="search">
+					<input type="text" class="searchPoint" placeholder="请输入查询的地点">
+					<span class="line">|</span>
+					<span class="shapcls"></span>
+					<span class="shape"></span>
+				</div>
+				<div class="search_path">
+					<div class="turn"></div>
+					<div class="button">
+						<div class="search_button"></div>
+						<div class="back"></div>
+					</div>
+					<div class="inputs">
+						<div class="start"><input type="text" class="searchPath" placeholder="输入起点或在地图上选点"></div>
+						<div class="end"><input type="text" class="searchPath" placeholder="输入终点"></div>
+					</div>
+
+				</div>
+				<div class="name">
+					<div class="button_path">
+						<div class="button_to">到这去</div>
+						<div class="button_from">从这出发</div>
+					</div>
+					<div class="thing">
+						<div id="name">可以在地图上选择点</div>
+						<div class="type"></div>
+					</div>
+				</div>
+				<div class="oo">
+					<div class="text">
+						<div class="tittle">简介</div>
+						<div id="message"></div>
+					</div>
+					<div class="img">
+						<div class="tittle">相册</div>
+						<div id="pic"></div>
+					</div>
+					<div class="discuss">
+						<div class="tittle">讨论</div>
+						<div class="discuss_thing"></div>
+					</div>
+				</div>
+				<div class="search_ans"></div>
+				<div class="wrong">
+					<div class="tittle">请选择准确的起点或终点</div>
+					<div class="things">
+						<div class="qidian">起点：<span class="place"></span></div>
+						<div class="zhongdian">终点：<span class="place"></span></div>
+					</div>
+				</div>
+				<div class="path_ans">
+					<div class="pthing">
+						<div class="tittle">最短路线</div>
+						<div class="path"></div>
+					</div>
+					<div class="pthing">
+						<div class="tittle">最美路线</div>
+						<div class="path"></div>
+					</div>
+					<div class="pthing">
+						<div class="tittle">绿荫路线</div>
+						<div class="path"></div>
+					</div>
+				</div>
+			</div>
+			<div class="wrap">
+				<div class="map" style="left:0;top:0"><canvas id="path" class="" width="1100" height="800"></canvas></div>
+			</div>
+		</div>
+	</body>
+	<script src="src/Mapmove.js" type="text/javascript" charset="utf-8"></script>
+	<script src="src/index.js" type="text/javascript" charset="utf-8"></script>
+	<script src="src/manage.js" type="text/javascript" charset="utf-8"></script>
+	<script src="src/canvas.js" type="text/javascript" charset="utf-8"></script>
+</html>

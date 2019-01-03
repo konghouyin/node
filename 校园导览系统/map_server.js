@@ -58,6 +58,7 @@ server.use('/map', function(req, res) {
 });
 
 server.listen(8082);
+
 var points = [{
 		id: 1,
 		positionX: 650,
@@ -229,7 +230,7 @@ var sides = [{
 
 // pool.getConnection(function(err, connection) {
 // 	for (var each in points) {
-// 		connection.query("INSERT INTO `map_point` (message) VALUES ('" + JSON.stringify(points[each]) + "')", function(err,
+// 		connection.query("INSERT INTO `map_point` (id,message) VALUES ("+points[each].id+",'" + JSON.stringify(points[each]) + "')", function(err,
 // 			data) {
 // 			if (err) {
 // 				throw err;
@@ -237,11 +238,11 @@ var sides = [{
 // 		});
 // 	}
 // });
-
-
+// 
+// 
 // pool.getConnection(function(err, connection) {
 // 	for (var each in sides) {
-// 		connection.query("INSERT INTO `map_side` (message) VALUES ('" + JSON.stringify(sides[each]) + "')", function(err,
+// 		connection.query("INSERT INTO `map_side` (id,message) VALUES ("+sides[each].id+",'" + JSON.stringify(sides[each]) + "')", function(err,
 // 			data) {
 // 			if (err) {
 // 				throw err;

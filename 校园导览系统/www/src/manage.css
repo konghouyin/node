@@ -1,0 +1,143 @@
+body {
+	-moz-user-select: none;
+	/*火狐*/
+	-webkit-user-select: none;
+	/*webkit浏览器*/
+	-ms-user-select: none;
+	/*IE10*/
+	-khtml-user-select: none;
+	/*早期浏览器*/
+	user-select: none;
+	background-color: #fff;
+	min-width: 1600px;
+}
+
+.top {
+	margin: 30px 10%;
+	height: 85px;
+
+}
+
+.top>.logo {
+	display: inline-block;
+	width: 350px;
+	height: 85px;
+	background-image: url(pic/logo_d.png);
+	background-repeat: no-repeat;
+	background-size: 100%;
+	vertical-align: top;
+}
+
+.top>.tittle {
+	font-size: 35px;
+	height: 85px;
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 50px;
+	line-height: 85px;
+	color: #1069a4;
+}
+.top .yulan{
+	display: inline-block;
+	float: right;
+	font-size: 20px;
+	margin: 30px 100px;
+	padding: 10px 20px;
+	color: #fff;
+	background-color: #1069a4;
+	border-radius: 25px;
+}
+.top .yulan:hover{
+	cursor: pointer;
+	background-color: #FA8722;
+}
+.message{
+	height: 600px;
+	background-color: #056aac85;
+	transition: all 1s ease-in-out;
+}
+
+.message .searchs{
+	float:left;
+	width:800px;
+	height:600px;
+	background-color: transparent;
+	border-right:2px solid #fff;
+	overflow: hidden;
+	max-height: 600px;
+}
+.message .point{
+	border-right:2px solid #fff;
+	float:left;
+	width:370px;
+	height:600px;
+	background-color: transparent;
+	overflow: hidden;
+}
+.message .side{
+	margin-left: 370px;
+}
+
+.message .ttpye{
+	text-align: center;
+	padding: 20px;
+	color: #eee;
+	font-size: 24px;
+}
+.message .tthing{
+	height: 520px;
+	overflow-y: scroll;
+}
+.message .tthing::-webkit-scrollbar {
+	/*滚动条整体样式*/
+	width: 0px;
+	/*高宽分别对应横竖滚动条的尺寸*/
+	height: 10px;
+}
+
+.message .tthing::-webkit-scrollbar-thumb {
+	/*滚动条里面小方块*/
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+	background: rgb(200, 200, 200);
+}
+
+.message .tthing::-webkit-scrollbar-track {
+	/*滚动条里面轨道*/
+	-webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+	border-radius: 10px;
+	background: #EDEDED;
+}
+
+
+
+
+.message .gnode {
+    color: #fff;
+    font-size: 18px;
+    padding: 9px 25px;
+}
+.message .gnode:hover{
+	background: #fff;
+	color: #000;
+	cursor: pointer;
+}
+
+.message .change{
+	margin-left: 800px;
+}
+
+
+
+
+
+.yulanshow{
+	width:99%;
+	position: absolute;
+	background-color:#ccc ;
+	display:block;
+	overflow: hidden;
+	max-height: 0px;
+	transition: all 1s ease-in-out;
+	margin: 10px;
+}
