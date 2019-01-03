@@ -29,6 +29,10 @@ function tu() {
 			var messageBack = JSON.parse(text);
 			points = messageBack.points;
 			sides = messageBack.sides;
+			var p = document.getElementsByClassName('content');
+			while(p.length!=0){
+				p.remove();
+			}
 			showall(1);
 			createPath();
 		},
@@ -247,7 +251,6 @@ document.getElementsByClassName('side_gai')[0].addEventListener('click',function
 //路径修改
 //缺陷：保证同一条路，只有一个数据
 
-
 document.getElementsByClassName('side_shanchu')[0].addEventListener('click',function(e){
 	var id = document.getElementById('side_id');
 	if(id.value == "" ){
@@ -286,7 +289,140 @@ document.getElementsByClassName('side_shanchu')[0].addEventListener('click',func
 })
 //路径删除
 
+document.getElementsByClassName('point_in')[0].addEventListener('click',function(e){
+	var id = document.getElementById('point_id');
+	var name = document.getElementById('point_name');
+	var x = document.getElementById('point_x');
+	var y = document.getElementById('point_y');
+	var level = document.getElementById('point_level');
+	var small = document.getElementById('point_small');
+	var style = document.getElementById('point_style');
+	var text = document.getElementById('point_text');
+	if(id.value == "" ||name.value == "" ||x.value == "" ||y.value == "" ||level.value == "" ||style.value == "" ||text.value == ""){
+		alert("请先完善表单再提交");
+		return ;
+	}
+	for(var i=0;i<points.length;i++){
+		if(id.value == points[i].id){
+			alert("id已占用，请填写其他id");
+			return;
+		}
+	}
+	var send = {
+		id:parseInt(id.value),
+		name:name.value,
+		x:parseInt(x.value),
+		y:parseInt(y.value),
+		level:parseFloat(level.value),
+		small:small.options[small.selectedIndex].value,
+		style:style.value,
+		text:text.value,
+	};
+	
+	Ajax({
+		url: "http://localhost:8082/pointin",
+		type: "post",
+		data: send,
+		async: true,
+		success: function(text) {
+			var messageBack = JSON.parse(text);
+			alert(messageBack.msg);
+			biao();
+		},
+		fail: function(err) {
+			alert("通信错误");
+		}
+	})
+})
+//景点添加
 
+document.getElementsByClassName('point_gai')[0].addEventListener('click',function(e){
+	var id = document.getElementById('point_id');
+	var name = document.getElementById('point_name');
+	var x = document.getElementById('point_x');
+	var y = document.getElementById('point_y');
+	var level = document.getElementById('point_level');
+	var small = document.getElementById('point_small');
+	var style = document.getElementById('point_style');
+	var text = document.getElementById('point_text');
+	if(id.value == "" ||name.value == "" ||x.value == "" ||y.value == "" ||level.value == "" ||style.value == "" ||text.value == ""){
+		alert("请先完善表单再提交");
+		return ;
+	}
+	var flag = 0;
+	for(var i=0;i<points.length;i++){
+		if(id.value == points[i].id){
+			alert("修改id为"+id.value+"的景点");
+			flag=1;
+		}
+	}
+	if(flag==0){
+		alert("没有对应id的景点，请重新操作");
+		return;
+	}
+	var send = {
+		id:parseInt(id.value),
+		name:name.value,
+		x:parseInt(x.value),
+		y:parseInt(y.value),
+		level:parseFloat(level.value),
+		small:small.options[small.selectedIndex].value,
+		style:style.value,
+		text:text.value,
+	};
+	
+	Ajax({
+		url: "http://localhost:8082/pointupdate",
+		type: "post",
+		data: send,
+		async: true,
+		success: function(text) {
+			var messageBack = JSON.parse(text);
+			alert(messageBack.msg);
+			biao();
+		},
+		fail: function(err) {
+			alert("通信错误");
+		}
+	})
+})
+//景点修改
+//缺陷：保证同一条路，只有一个数据
 
-
-
+document.getElementsByClassName('point_shanchu')[0].addEventListener('click',function(e){
+	var id = document.getElementById('point_id');
+	if(id.value == "" ){
+		alert("请输入需要删除的id号");
+		return ;
+	}
+	var flag = 0;
+	for(var i=0;i<points.length;i++){
+		if(id.value == points[i].id){
+			alert("删除id为"+id.value+"的道路");
+			flag=1;
+		}
+	}
+	if(flag==0){
+		alert("没有找到对应id的道路，请重新操作");
+		return;
+	}
+	var send = {
+		id:parseInt(id.value),
+	};
+	
+	Ajax({
+		url: "http://localhost:8082/pointdel",
+		type: "post",
+		data: send,
+		async: true,
+		success: function(text) {
+			var messageBack = JSON.parse(text);
+			alert(messageBack.msg);
+			biao();
+		},
+		fail: function(err) {
+			alert("通信错误");
+		}
+	})
+})
+//景点删除

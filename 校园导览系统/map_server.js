@@ -70,6 +70,16 @@ function toInt(obj) {
 	return obj;
 }
 
+function toInt2(obj) {
+	obj.id = parseInt(obj.id);
+	obj.positionX = parseInt(obj.x);
+	obj.positionY = parseInt(obj.y);
+	obj.img=[];
+	obj.message=[];
+	obj.level = parseFloat(obj.level);
+	return obj;
+}
+
 server.use('/sidein', function(req, res) {
 	var obj = {};
 	var message = '';
@@ -108,9 +118,7 @@ server.use('/sideupdate', function(req, res) {
 	})
 	req.on('end', function() {
 		obj = querystring.parse(message);
-		console.log(obj);
 		obj=toInt(obj);
-		console.log(obj);
 		pool.getConnection(function(err, connection) {
 			connection.query("UPDATE  `map_side` SET id=" + obj.id + ", message='" + JSON.stringify(
 					obj) + "' WHERE id =" + obj.id,
@@ -156,6 +164,92 @@ server.use('/sidedel', function(req, res) {
 		});
 	});
 });
+
+server.use('/pointin', function(req, res) {
+	var obj = {};
+	var message = '';
+	req.on('data', function(data) {
+		message += data;
+	})
+	req.on('end', function() {
+		obj = querystring.parse(message);
+		obj=toInt2(obj);
+		pool.getConnection(function(err, connection) {
+
+			connection.query("INSERT INTO `map_point` (id,message) VALUES (" + obj.id + ",'" + JSON.stringify(
+					obj) +
+				"')",
+				function(err, data) {
+					if (err) {
+						throw err;
+					} else {
+						connection.release();
+						res.write(JSON.stringify({
+							msg: "景点添加成功"
+						}));
+						res.end();
+					}
+				});
+
+		});
+	});
+});
+
+server.use('/pointupdate', function(req, res) {
+	var obj = {};
+	var message = '';
+	req.on('data', function(data) {
+		message += data;
+	})
+	req.on('end', function() {
+		obj = querystring.parse(message);
+		obj=toInt2(obj);
+		pool.getConnection(function(err, connection) {
+			connection.query("UPDATE  `map_point` SET id=" + obj.id + ", message='" + JSON.stringify(
+					obj) + "' WHERE id =" + obj.id,
+				function(err, data) {
+					if (err) {
+						throw err;
+					} else {
+						connection.release();
+						res.write(JSON.stringify({
+							msg: "景点修改成功"
+						}));
+						res.end();
+					}
+				});
+
+		});
+	});
+});
+
+server.use('/pointdel', function(req, res) {
+	var obj = {};
+	var message = '';
+	req.on('data', function(data) {
+		message += data;
+	})
+	req.on('end', function() {
+		obj = querystring.parse(message);
+		console.log(obj);
+		pool.getConnection(function(err, connection) {
+			connection.query("DELETE FROM `map_point` WHERE id =" + obj.id,
+				function(err, data) {
+					if (err) {
+						throw err;
+					} else {
+						connection.release();
+						res.write(JSON.stringify({
+							msg: "景点删除成功"
+						}));
+						res.end();
+					}
+				});
+
+		});
+	});
+});
+
 
 server.listen(8082);
 
