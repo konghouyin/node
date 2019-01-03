@@ -327,7 +327,21 @@ body {
 .xue::before {
 	background-image: url(pic/study.png);
 }
-
+.hui::before{
+	background-image: url(pic/hui.png);
+}
+.yiliao::before{
+	background-image: url(pic/xiaoyiyuan.png);
+}
+.wuliu::before{
+	background-image: url(pic/wuliu.png);
+}
+.zhu::before{
+	background-image: url(pic/xiaoqu.png);
+}
+.shiyan::before{
+	background-image: url(pic/zhongxiaoxue.png);
+}
 
 .#path {
 	position: absolute;

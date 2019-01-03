@@ -14,7 +14,6 @@ Ajax({
 		data: {},
 		async: true,
 		success: function(text){
-			console.log("new");
 			var messageBack = JSON.parse(text);
 			flag8083 = 0;
 			if(messageBack.style==0){

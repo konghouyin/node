@@ -16,7 +16,7 @@
 			<div class="tittle">校园导览系统管理界面</div>
 			<div class="yulan">预览</div>
 		</div>
-		<div class="message">
+		<div class="gmessage">
 			<div class="searchs">
 				<div class="point">
 					<div class="ttpye">景点</div>
@@ -28,7 +28,72 @@
 				</div>
 			</div>
 			<div class="change">
-				<div class="change_point"></div>
+				<div class="gright">
+					<div class="form">
+						<div class="form_name">id</div><input id="side_id" type="text">
+					</div>
+					<div class="form">
+						<div class="form_name">点1</div><input id="side_point1" type="text">
+					</div>
+					<div class="form">
+						<div class="form_name">点2</div><input id="side_point2" type="text">
+					</div>
+					<div class="form">
+						<div class="form_name">长度</div><input id="side_length" type="text">
+					</div>
+					<div class="form">
+						<div class="form_name">美丽</div><input id="side_beautiful" type="text">
+					</div>
+					<div class="form">
+						<div class="form_name">绿荫</div><input id="side_green" type="text">
+					</div>
+					<div class="form">
+						<div class="form_name">路径</div><textarea id="side_path"></textarea>
+					</div>
+					<div class="side_in gbutton">增加</div>
+					<div class="side_gai gbutton">修改</div>
+					<div class="side_shanchu gbutton">删除</div>
+				</div>
+				<div class="change_point">
+					<div class="form">
+						<div class="form_name">id</div><input id="point_id" type="text">
+					</div>
+					<div class="form">
+						<div class="form_name">名称</div><input id="point_name" type="text">
+					</div>
+					<div class="form">
+						<div class="form_name">x坐标</div><input id="point_x" type="text">
+					</div>
+					<div class="form">
+						<div class="form_name">y坐标</div><input id="point_y" type="text">
+					</div>
+					<div class="form">
+						<div class="form_name">缩放</div><input id="point_level" type="text">
+					</div>
+					<div class="form">
+						<div class="form_name">图标</div><select name="选择图标" id="point_small">
+							<option value="eat">餐饮</option>
+							<option value="hui">会场</option>
+							<option value="jingguan">景观</option>
+							<option value="men">门</option>
+							<option value="xue" selected>教学</option>
+							<option value="tiyu">体育</option>
+							<option value="wuliu">物流</option>
+							<option value="zhu">宿舍</option>
+							<option value="yiliao">医疗</option>
+							<option value="shiyan">实验</option>
+						</select>
+					</div>
+					<div class="form">
+						<div class="form_name">类型</div><input id="point_style" type="text">
+					</div>
+					<div class="form">
+						<div class="form_name">文本</div><textarea id="point_text"></textarea>
+					</div>
+					<div class="point_in gbutton">增加</div>
+					<div class="point_gai gbutton">修改</div>
+					<div class="point_shanchu gbutton">删除</div>
+				</div>
 				<div class="change_side"></div>
 			</div>
 		</div>

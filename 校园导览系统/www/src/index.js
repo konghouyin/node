@@ -126,7 +126,6 @@ function Point() {
 
 var clickEvent = document.getElementsByClassName('map')[0];
 clickEvent.addEventListener('click', function(e) {
-	console.log(e);
 	if (e.path[0].classList[0]=="content") {
 		for (each in points) {
 			if (points[each].id == e.path[0].point) {
@@ -219,7 +218,6 @@ function find(keyWord) {
 //字符串方法indexOf，模糊搜索
 
 document.getElementsByClassName("search_ans")[0].addEventListener("click", function(e) {
-	console.log(e);
 	if (e.path[0].classList[0] == "node") {
 		for (each in points) {
 			if (points[each].id == e.path[0].point) {
@@ -275,7 +273,6 @@ function createPath(obj) {
 		var j, k;
 		j = findId(sides[i].point1);
 		k = findId(sides[i].point2);
-		console.log(sides[i].length,j,k);
 		sLength[j][k] = sides[i].length;
 		sBeautiful[j][k] = sides[i].length;
 		sGreen[j][k] = sides[i].length;
@@ -559,14 +556,16 @@ function showNoPath(i) {
 	pthing[i].appendChild(node);
 }
 function showPathLength(id1,id2,i){
+	console.log(id1,id2);
 	var pthing = document.getElementsByClassName("pthing")[i];
 	for(var each in sides){
+		console.log(each);
 		if((sides[each].point1==id1&&sides[each].point2==id2)||(sides[each].point2==id1&&sides[each].point1==id2)){
 			var snode = document.createElement('div');
 			snode.setAttribute("class", "snode");
 			snode.innerHTML = findName(id1);
 			pthing.children[1].appendChild(snode);
-			for(var a in sides[each].path){
+			for(var a=0;a<sides[each].path.length;a++){
 				eval("canvas_path("+ sides[each].path[a] +")");
 			}
 			//绘图---------------------------------------------------------------
@@ -596,6 +595,10 @@ function showPath(arr,s) {
 
 var searchButton = document.getElementsByClassName('search_button')[0];
 searchButton.addEventListener('click', function() {
+	var canvas = document.getElementById("path");
+	var context = canvas.getContext("2d");
+	context.clearRect(0, 0, 1100, 800);
+	//清除画布
 	var list = findTrue(start.value, end.value);
 	var wrong = document.getElementsByClassName('wrong')[0];
 	if (start.value == "" || end.value == "") {
@@ -617,10 +620,7 @@ searchButton.addEventListener('click', function() {
 	var pathAns = document.getElementsByClassName('path_ans')[0];
 	pathAns.style.maxHeight = "500px";
 	
-	var canvas = document.getElementById("path");
-	var context = canvas.getContext("2d");
-	context.clearRect(0, 0, 1100, 800);
-	//清除画布
+
 	
 	var line = Path.prototype.findPath(sLength, list[0], list[1]);
 	console.log(line);

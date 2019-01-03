@@ -37,7 +37,8 @@ body {
 	line-height: 85px;
 	color: #1069a4;
 }
-.top .yulan{
+
+.top .yulan {
 	display: inline-block;
 	float: right;
 	font-size: 20px;
@@ -47,62 +48,68 @@ body {
 	background-color: #1069a4;
 	border-radius: 25px;
 }
-.top .yulan:hover{
+
+.top .yulan:hover {
 	cursor: pointer;
 	background-color: #FA8722;
 }
-.message{
+
+.gmessage {
 	height: 600px;
 	background-color: #056aac85;
 	transition: all 1s ease-in-out;
 }
 
-.message .searchs{
-	float:left;
-	width:800px;
-	height:600px;
+.gmessage .searchs {
+	float: left;
+	width: 800px;
+	height: 600px;
 	background-color: transparent;
-	border-right:2px solid #fff;
+	border-right: 2px solid #fff;
 	overflow: hidden;
 	max-height: 600px;
 }
-.message .point{
-	border-right:2px solid #fff;
-	float:left;
-	width:370px;
-	height:600px;
+
+.gmessage .point {
+	border-right: 2px solid #fff;
+	float: left;
+	width: 370px;
+	height: 600px;
 	background-color: transparent;
 	overflow: hidden;
 }
-.message .side{
+
+.gmessage .side {
 	margin-left: 370px;
 }
 
-.message .ttpye{
+.gmessage .ttpye {
 	text-align: center;
 	padding: 20px;
 	color: #eee;
 	font-size: 24px;
 }
-.message .tthing{
+
+.gmessage .tthing {
 	height: 520px;
 	overflow-y: scroll;
 }
-.message .tthing::-webkit-scrollbar {
+
+.gmessage .tthing::-webkit-scrollbar {
 	/*滚动条整体样式*/
 	width: 0px;
 	/*高宽分别对应横竖滚动条的尺寸*/
 	height: 10px;
 }
 
-.message .tthing::-webkit-scrollbar-thumb {
+.gmessage .tthing::-webkit-scrollbar-thumb {
 	/*滚动条里面小方块*/
 	border-radius: 10px;
 	-webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
 	background: rgb(200, 200, 200);
 }
 
-.message .tthing::-webkit-scrollbar-track {
+.gmessage .tthing::-webkit-scrollbar-track {
 	/*滚动条里面轨道*/
 	-webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
 	border-radius: 10px;
@@ -112,30 +119,72 @@ body {
 
 
 
-.message .gnode {
-    color: #fff;
-    font-size: 18px;
-    padding: 9px 25px;
+.gmessage .gnode {
+	color: #fff;
+	font-size: 18px;
+	padding: 9px 25px;
 }
-.message .gnode:hover{
+
+.gmessage .gnode:hover {
 	background: #fff;
 	color: #000;
 	cursor: pointer;
 }
 
-.message .change{
+.gmessage .change {
 	margin-left: 800px;
+	padding: 25px;
 }
 
 
+.form {
+	font-size: 20px;
+	padding: 10px 15px;
+	color: #fff;
+}
+.form input{
+	height: 24px;
+	font-size:18px ;
+	padding-left: 5px;
+}
+.form_name{
+	display: inline-block;
+	width:70px;
+	text-align: center;
+}
 
+#point_small{
+	font-size: 18px;
+	height: 28px;
+	width:120px;
+}
+#side_path,
+#point_text{
+	width:220px;
+	height: 100px;
+	font-size: 18px;
+}
 
+.gright{
+	float:right;
+	width:420px;
+}
+.gbutton{
+	display:inline-block;
+	margin: 20px 18px;
+	padding:10px 21px;
+	background-color: #fff;
+	box-shadow: #aaa 2px 2px 10px;
+}
+.gbutton:hover{
+	cursor: pointer;
+}
 
-.yulanshow{
-	width:99%;
+.yulanshow {
+	width: 99%;
 	position: absolute;
-	background-color:#ccc ;
-	display:block;
+	background-color: #ccc;
+	display: block;
 	overflow: hidden;
 	max-height: 0px;
 	transition: all 1s ease-in-out;

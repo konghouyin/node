@@ -1,5 +1,7 @@
 var mysql = require('mysql');
 var express = require('express');
+var querystring = require('querystring');
+
 var server = express();
 
 var pool = mysql.createPool({
@@ -41,7 +43,7 @@ server.use('/map', function(req, res) {
 					if (err) {
 						throw err;
 					} else {
-						
+
 						for (var i = 0; i < data.length; i++) {
 							var n = JSON.parse(data[i].message);
 							n.id = data[i].id;
@@ -53,6 +55,104 @@ server.use('/map', function(req, res) {
 					res.end();
 				});
 			});
+		});
+	});
+});
+
+function toInt(obj) {
+	obj.id = parseInt(obj.id);
+	obj.point1 = parseInt(obj.point1);
+	obj.point2 = parseInt(obj.point2);
+	obj.length = parseInt(obj.length);
+	obj.beautiful = parseInt(obj.beautiful);
+	obj.green = parseInt(obj.green);
+	obj.path = JSON.parse(obj.path);
+	return obj;
+}
+
+server.use('/sidein', function(req, res) {
+	var obj = {};
+	var message = '';
+	req.on('data', function(data) {
+		message += data;
+	})
+	req.on('end', function() {
+		obj = querystring.parse(message);
+		obj=toInt(obj);
+		pool.getConnection(function(err, connection) {
+
+			connection.query("INSERT INTO `map_side` (id,message) VALUES (" + obj.id + ",'" + JSON.stringify(
+					obj) +
+				"')",
+				function(err, data) {
+					if (err) {
+						throw err;
+					} else {
+						connection.release();
+						res.write(JSON.stringify({
+							msg: "道路添加成功"
+						}));
+						res.end();
+					}
+				});
+
+		});
+	});
+});
+
+server.use('/sideupdate', function(req, res) {
+	var obj = {};
+	var message = '';
+	req.on('data', function(data) {
+		message += data;
+	})
+	req.on('end', function() {
+		obj = querystring.parse(message);
+		console.log(obj);
+		obj=toInt(obj);
+		console.log(obj);
+		pool.getConnection(function(err, connection) {
+			connection.query("UPDATE  `map_side` SET id=" + obj.id + ", message='" + JSON.stringify(
+					obj) + "' WHERE id =" + obj.id,
+				function(err, data) {
+					if (err) {
+						throw err;
+					} else {
+						connection.release();
+						res.write(JSON.stringify({
+							msg: "道路修改成功"
+						}));
+						res.end();
+					}
+				});
+
+		});
+	});
+});
+
+server.use('/sidedel', function(req, res) {
+	var obj = {};
+	var message = '';
+	req.on('data', function(data) {
+		message += data;
+	})
+	req.on('end', function() {
+		obj = querystring.parse(message);
+		console.log(obj);
+		pool.getConnection(function(err, connection) {
+			connection.query("DELETE FROM `map_side` WHERE id =" + obj.id,
+				function(err, data) {
+					if (err) {
+						throw err;
+					} else {
+						connection.release();
+						res.write(JSON.stringify({
+							msg: "道路删除成功"
+						}));
+						res.end();
+					}
+				});
+
 		});
 	});
 });
@@ -180,17 +280,7 @@ var points = [{
 		name: "图书馆",
 		img: [],
 		text: "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;西安邮电大学图书馆，有很多藏书",
-		message: [{
-				name: "ppop",
-				thing: "MySQL必知必会借不到。",
-				time: "2018-12-30"
-			},
-			{
-				name: "学",
-				thing: "书普遍偏旧",
-				time: "2018-12-29"
-			}
-		]
+		message: []
 	}
 ];
 
@@ -230,7 +320,8 @@ var sides = [{
 
 // pool.getConnection(function(err, connection) {
 // 	for (var each in points) {
-// 		connection.query("INSERT INTO `map_point` (id,message) VALUES ("+points[each].id+",'" + JSON.stringify(points[each]) + "')", function(err,
+// 		connection.query("INSERT INTO `map_point` (id,message) VALUES (" + points[each].id + ",'" + JSON.stringify(points[
+// 			each]) + "')", function(err,
 // 			data) {
 // 			if (err) {
 // 				throw err;
@@ -242,11 +333,15 @@ var sides = [{
 // 
 // pool.getConnection(function(err, connection) {
 // 	for (var each in sides) {
-// 		connection.query("INSERT INTO `map_side` (id,message) VALUES ("+sides[each].id+",'" + JSON.stringify(sides[each]) + "')", function(err,
-// 			data) {
-// 			if (err) {
-// 				throw err;
-// 			} else {}
-// 		});
+// 		connection.query("INSERT INTO `map_side` (id,message) VALUES (" + sides[each].id + ",'" + JSON.stringify(sides[each]) +
+// 			"')",
+// 			function(err,
+// 				data) {
+// 				if (err) {
+// 					throw err;
+// 				} else {}
+// 			});
 // 	}
 // });
+// 
+// 
