@@ -31,7 +31,7 @@ function tu() {
 			sides = messageBack.sides;
 			var p = document.getElementsByClassName('content');
 			while(p.length!=0){
-				p.remove();
+				p[0].remove();
 			}
 			showall(1);
 			createPath();
@@ -54,7 +54,6 @@ function biao() {
 			sides = messageBack.sides;
 			
 			var gnode = document.getElementsByClassName('gnode');
-			
 			while(gnode.length!=0){
 				gnode[0].remove();
 			}
@@ -90,7 +89,6 @@ biao();
 //获取道路预览
 
 document.getElementsByClassName('tthing')[0].addEventListener('click',function(e){
-	console.log(e.path);
 	var id = document.getElementById('point_id');
 	var name = document.getElementById('point_name');
 	var x = document.getElementById('point_x');
@@ -115,7 +113,6 @@ document.getElementsByClassName('tthing')[0].addEventListener('click',function(e
 			}
 		}
 		text.value = points[num].text;
-		
 	}
 })
 //添加景点到右侧
@@ -311,8 +308,8 @@ document.getElementsByClassName('point_in')[0].addEventListener('click',function
 	var send = {
 		id:parseInt(id.value),
 		name:name.value,
-		x:parseInt(x.value),
-		y:parseInt(y.value),
+		positionX:parseInt(x.value),
+		positionY:parseInt(y.value),
 		level:parseFloat(level.value),
 		small:small.options[small.selectedIndex].value,
 		style:style.value,
@@ -363,8 +360,8 @@ document.getElementsByClassName('point_gai')[0].addEventListener('click',functio
 	var send = {
 		id:parseInt(id.value),
 		name:name.value,
-		x:parseInt(x.value),
-		y:parseInt(y.value),
+		positionX:parseInt(x.value),
+		positionY:parseInt(y.value),
 		level:parseFloat(level.value),
 		small:small.options[small.selectedIndex].value,
 		style:style.value,

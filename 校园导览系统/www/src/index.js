@@ -1,4 +1,8 @@
 
+
+//eval("canvas_path(1,670,490,700,490)");
+
+
 function showall(level) {
 	for (each in points) {
 		if (points[each].level <= level) {
@@ -126,7 +130,7 @@ function Point() {
 
 var clickEvent = document.getElementsByClassName('map')[0];
 clickEvent.addEventListener('click', function(e) {
-	if (e.path[0].classList[0]=="content") {
+	if (e.path[0].classList[0] == "content") {
 		for (each in points) {
 			if (points[each].id == e.path[0].point) {
 				Point.prototype.click(points[each]);
@@ -274,11 +278,11 @@ function createPath(obj) {
 		j = findId(sides[i].point1);
 		k = findId(sides[i].point2);
 		sLength[j][k] = sides[i].length;
-		sBeautiful[j][k] = sides[i].length;
-		sGreen[j][k] = sides[i].length;
+		sBeautiful[j][k] = sides[i].beautiful;
+		sGreen[j][k] = sides[i].green;
 		sLength[k][j] = sides[i].length;
-		sBeautiful[k][j] = sides[i].length;
-		sGreen[k][j] = sides[i].length;
+		sBeautiful[k][j] = sides[i].beautiful;
+		sGreen[k][j] = sides[i].green;
 	}
 	//存储路径,无向网
 }
@@ -320,7 +324,7 @@ closeL.addEventListener("click", function(e) {
 	pathAns.style.maxHeight = "0px";
 	var wrong = document.getElementsByClassName('wrong')[0];
 	wrong.style.maxHeight = "0px";
-	
+
 	var canvas = document.getElementById("path");
 	var context = canvas.getContext("2d");
 	context.clearRect(0, 0, 1100, 800);
@@ -368,8 +372,8 @@ Path.prototype = {
 					var min = djs[i].length;
 					min = pathab(arr, j, i) + djs[j].length < min ? (djs[i].parent = j, pathab(arr, j, i) + djs[j].length) : min;
 					djs[i].length = min;
-				
-					if (min <= mmin) {//一定为最小值，否则，会陷入0错误
+
+					if (min <= mmin) { //一定为最小值，否则，会陷入0错误
 						mmin = min;
 						mmp = i;
 					}
@@ -539,7 +543,7 @@ function showWrong(id1, id2) {
 	}
 }
 //显示查询错误
-function findName(id){
+function findName(id) {
 	for (var each in points) {
 		if (points[each].id == id) {
 			return points[each].name;
@@ -555,18 +559,19 @@ function showNoPath(i) {
 	node.innerHTML = "没有通路";
 	pthing[i].appendChild(node);
 }
-function showPathLength(id1,id2,i){
-	console.log(id1,id2);
+
+function showPathLength(id1, id2, i) {
 	var pthing = document.getElementsByClassName("pthing")[i];
-	for(var each in sides){
+	for (var each in sides) {
 		console.log(each);
-		if((sides[each].point1==id1&&sides[each].point2==id2)||(sides[each].point2==id1&&sides[each].point1==id2)){
+		if ((sides[each].point1 == id1 && sides[each].point2 == id2) || (sides[each].point2 == id1 && sides[each].point1 ==
+				id2)) {
 			var snode = document.createElement('div');
 			snode.setAttribute("class", "snode");
 			snode.innerHTML = findName(id1);
 			pthing.children[1].appendChild(snode);
-			for(var a=0;a<sides[each].path.length;a++){
-				eval("canvas_path("+ sides[each].path[a] +")");
+			for (var a = 0; a < sides[each].path.length; a++) {
+				eval("canvas_path(" + sides[each].path[a] + ")");
 			}
 			//绘图---------------------------------------------------------------
 			return sides[each].length;
@@ -574,22 +579,23 @@ function showPathLength(id1,id2,i){
 	}
 }
 //显示路径，并画图
-function showPath(arr,s) {
+function showPath(arr, s) {
+	console.log(arr);
 	var pthing = document.getElementsByClassName('pthing')[s];
 	var node = document.createElement('div');
 	node.setAttribute("class", "nnode");
 	var length = 0
-	for(var i=0;i<arr.length-1;i++){
-		length+=showPathLength(arr[i],arr[i+1],s);
+	for (var i = 0; i < arr.length - 1; i++) {
+		length += showPathLength(arr[i], arr[i + 1], s);
 	}
-	
+
 	var snode = document.createElement('div');
 	snode.setAttribute("class", "snode");
-	snode.innerHTML = findName(arr[arr.length-1]);
+	snode.innerHTML = findName(arr[arr.length - 1]);
 	pthing.children[1].appendChild(snode);
 	//添加最后一个元素
-	
-	node.innerHTML = "路径总长度："+length;
+
+	node.innerHTML = "路径总长度：" + length;
 	pthing.appendChild(node);
 }
 
@@ -616,15 +622,14 @@ searchButton.addEventListener('click', function() {
 		showWrong(list[0], list[1]);
 		return;
 	}
-	
+
 	var pathAns = document.getElementsByClassName('path_ans')[0];
 	pathAns.style.maxHeight = "500px";
-	
 
-	
+
+
 	var line = Path.prototype.findPath(sLength, list[0], list[1]);
-	console.log(line);
-	if (line.length == 2 && sLength[findId(line[0])][findId(line[1])]>500000) {
+	if (line.length == 2 && sLength[findId(line[0])][findId(line[1])] > 500000) {
 		try {
 			var n = document.getElementsByClassName('nnode');
 			var length = n.length;
