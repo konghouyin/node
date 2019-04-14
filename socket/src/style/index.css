@@ -1,0 +1,166 @@
+html,
+body {
+	height: 100%;
+}
+*{
+	max-height: 999999px; 
+}
+
+.page0,
+.page4,.page2 {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.84);
+}
+
+.page0 .card {
+	width: 6rem;
+	height: 4.75rem;
+	border-radius: 0.6rem;
+	left: 50%;
+	background-color: rgb(247, 247, 247);
+	position: absolute;
+	margin-left: -3rem;
+	top: 2rem;
+	overflow: hidden;
+}
+
+.page0 h4 {
+	font-size: 0.6rem;
+	padding: 0.6rem 0 0.4rem 0;
+	text-align: center;
+}
+
+.page0 h5 {
+	font-size: 0.35rem;
+	color: #AAAAAA;
+	text-align: center;
+	padding-bottom: 0.3rem;
+}
+
+.page0 .btn {
+	font-size: 0.55rem;
+	padding: 0.3rem;
+	color: rgb(85, 124, 181);
+	text-align: center;
+}
+
+.page0 input {
+	width: 100%;
+	height: 0.95rem;
+	border: 1px solid #aaa;
+	font-size: 0.4rem;
+	text-align: center;
+	border-left: none;
+	border-spacing: unset;
+}
+
+.page1 {
+	background-image: url(../../640x1136bb.jpg);
+	background-size: 100%;
+	height: 100%;
+}
+
+.page1 .btn {
+	font-size: 0.4rem;
+	color: #fff;
+	border: 0.1rem solid #777;
+	background-color: #444;
+	padding: 0.3rem 0;
+	display: inline-block;
+	border-radius: 2rem;
+	width: 2.4rem;
+	text-align: center;
+	margin: 0.5rem 0;
+}
+
+.page1 ul {
+	padding: 3.5rem 0 0 4.5rem;
+}
+
+.page2{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+.page2 .box{
+	position: relative;
+	margin: 0 auto;
+	width:5rem;
+	height:5rem;
+	background-color: #444444;
+	font-size: 0.5rem;
+	text-align: center;
+}
+#circle{
+	position: absolute;
+	top:0;
+	left: 0;
+}
+
+
+
+
+
+.page4 {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.page4 h4 {
+	color: #fff;
+	font-size: 0.6rem;
+	text-align: center;
+}
+
+.page4 .list,
+.page4 .me {
+	overflow: scroll;
+	width: 5.5rem;
+	height: 7rem;
+	margin: 0.5rem auto;
+	border-radius: 0.2rem;
+	background-color: rgb(124, 124, 124, 0.9);
+}
+
+.page4 .me {
+	margin: 0 auto;
+	height: 1.2rem;
+}
+
+.page4 .back {
+	width: 0.65rem;
+	height: 0.9rem;
+	background-color: #ddd;
+	border-radius: 1rem;
+	line-height: 0.7rem;
+	font-size: 0.7rem;
+	padding-left: 0.25rem;
+	font-weight: bolder;
+	color: #666;
+	margin: 0rem 1rem;
+}
+
+.page4 .person {
+	text-align: center;
+}
+
+.page4 span {
+	font-size: 0.4rem;
+	display: inline-block;
+	color: #ddd;
+	line-height: 1rem;
+	vertical-align: middle;
+	transform: scale(1,1);
+}
+
+.page4 .name {
+	text-overflow: ellipsis;
+	width: 3rem;
+	white-space: nowrap;
+	overflow: hidden;
+}

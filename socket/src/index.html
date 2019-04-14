@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+		<title>O#游戏</title>
+		<script type="text/javascript">
+			(function(doc, win) {
+				var docEl = doc.documentElement,
+					resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+					recalc = function() {
+						var clientWidth = docEl.clientWidth;
+						if (!clientWidth) return;
+		
+						else docEl.style.fontSize = 50 * (clientWidth / 375) + 'px';
+		
+					};
+				if (!doc.addEventListener) return;
+				win.addEventListener(resizeEvt, recalc, false);
+				doc.addEventListener('DOMContentLoaded', recalc, false);
+			})(document, window);
+		</script>
+	</head>
+	<body>
+		<div class="page0" style="display:none">
+			<div class="card">
+				<h4>输入您的昵称</h4>
+				<h5>便于您的好友搜索到您</h5>
+				<input type="text" name="" id="" value="" placeholder="请在此输入"/>
+				<div class="btn">确认</div>
+			</div>
+		</div>
+		<div class="page1">
+			<div class="list">
+				<ul>
+					<li class="btn">开始游戏</li>
+					<li class="btn">邀请好友</li>
+					<li class="btn">排行榜</li>
+					<li class="btn">退出账号</li>
+				</ul>
+			</div>
+		</div>
+		<div class="page2">
+			<div class="box">
+				<canvas id="circle"></canvas>
+				<h5>正在匹配</h5>
+				<h6>已花费</h6>
+				<h6>每局匹配时间不超过1分钟</h6>
+			</div>
+		</div>
+		<div class="page3"></div>
+		<div class="page4" style="display:none">
+			<div class="back">x</div>
+			<h4>游戏排行榜</h4>
+			<div class="list">
+				<div class="person">
+					<span class="id">1</span>
+					<span class="name">K电饭锅发个onghouyin</span>
+					<span class="level">黄金-2</span>
+				</div>
+				<div class="person">
+					<span class="id">1</span>
+					<span class="name">K电饭锅发个onghouyin</span>
+					<span class="level">黄金-2</span>
+				</div>
+				<div class="person">
+					<span class="id">1</span>
+					<span class="name">K电饭锅发个onghouyin</span>
+					<span class="level">黄金-2</span>
+				</div>
+				<div class="person">
+					<span class="id">1</span>
+					<span class="name">K电饭锅发个onghouyin</span>
+					<span class="level">黄金-2</span>
+				</div>
+				<div class="person">
+					<span class="id">1</span>
+					<span class="name">K电饭锅发个onghouyin</span>
+					<span class="level">黄金-2</span>
+				</div>
+				<div class="person">
+					<span class="id">1</span>
+					<span class="name">K电饭锅发个onghouyin</span>
+					<span class="level">黄金-2</span>
+				</div>
+				<div class="person">
+					<span class="id">1</span>
+					<span class="name">K电饭锅发个onghouyin</span>
+					<span class="level">黄金-2</span>
+				</div>
+				<div class="person">
+					<span class="id">1</span>
+					<span class="name">K电饭锅发个onghouyin</span>
+					<span class="level">黄金-2</span>
+				</div>
+				<div class="person">
+					<span class="id">1</span>
+					<span class="name">K电饭锅发个onghouyin</span>
+					<span class="level">黄金-2</span>
+				</div>
+				<div class="person">
+					<span class="id">1</span>
+					<span class="name">K电饭锅发个onghouyin</span>
+					<span class="level">黄金-2</span>
+				</div>
+				<div class="person">
+					<span class="id">1</span>
+					<span class="name">K电饭锅发个onghouyin</span>
+					<span class="level">黄金-2</span>
+				</div>
+				<div class="person">
+					<span class="id">1</span>
+					<span class="name">K电饭锅发个onghouyin</span>
+					<span class="level">黄金-2</span>
+				</div>
+				<div class="person">
+					<span class="id">1</span>
+					<span class="name">K电饭锅发个onghouyin</span>
+					<span class="level">黄金-2</span>
+				</div>
+				<div class="person">
+					<span class="id">1</span>
+					<span class="name">K电饭锅发个onghouyin</span>
+					<span class="level">黄金-2</span>
+				</div>
+				<div class="person">
+					<span class="id">1</span>
+					<span class="name">K电饭锅发个onghouyin</span>
+					<span class="level">黄金-2</span>
+				</div>
+				<div class="person">
+					<span class="id">1</span>
+					<span class="name">K电饭锅发个onghouyin</span>
+					<span class="level">黄金-2</span>
+				</div>
+				<div class="person">
+					<span class="id">1</span>
+					<span class="name">K电饭锅发个onghouyin</span>
+					<span class="level">黄金-2</span>
+				</div>
+				
+			</div>
+			<div class="me">
+				<div class="person">
+					<span class="id">1</span>
+					<span class="name">K电饭锅发个onghouyin</span>
+					<span class="level">黄金-2</span>
+				</div>
+			</div>
+		</div>
+		<div class="page5"></div>
+		<div class="page6"></div>
+	</body>
+</html>
