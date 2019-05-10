@@ -2,102 +2,150 @@ html,
 body {
 	height: 100%;
 }
-*{
-	max-height: 999999px; 
+
+* {
+	max-height: 999999px;
 }
 
 .page0,
-.page4,.page2 {
+.page4,
+.page2 {
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(0, 0, 0, 0.84);
+	background-color: rgba(0, 0, 0, 0.6);
 }
 
 .page0 .card {
-	width: 6rem;
-	height: 4.75rem;
+	width: 5rem;
+	padding: 0.2rem 0;
 	border-radius: 0.6rem;
 	left: 50%;
 	background-color: rgb(247, 247, 247);
 	position: absolute;
-	margin-left: -3rem;
+	margin-left: -2.5rem;
 	top: 2rem;
 	overflow: hidden;
+	box-sizing: border-box;
 }
 
 .page0 h4 {
-	font-size: 0.6rem;
-	padding: 0.6rem 0 0.4rem 0;
+	font-size: 0.45rem;
+	padding:0.2rem 0;
 	text-align: center;
 }
 
 .page0 h5 {
-	font-size: 0.35rem;
+	font-size: 0.25rem;
 	color: #AAAAAA;
 	text-align: center;
-	padding-bottom: 0.3rem;
+	padding-bottom:0.25rem ;
 }
 
 .page0 .btn {
-	font-size: 0.55rem;
-	padding: 0.3rem;
-	color: rgb(85, 124, 181);
+	font-size: 0.45rem;
+	padding: 0.2rem;
+	color: #538fd3;
 	text-align: center;
 }
 
 .page0 input {
+	display: block;
 	width: 100%;
-	height: 0.95rem;
+	height: 0.65rem;
 	border: 1px solid #aaa;
-	font-size: 0.4rem;
+	font-size: 0.3rem;
 	text-align: center;
 	border-left: none;
-	border-spacing: unset;
+	outline: none;
 }
 
 .page1 {
-	background-image: url(../../640x1136bb.jpg);
+	background-image: url(../pic/backimg.jpg);
 	background-size: 100%;
 	height: 100%;
+	overflow: hidden;
 }
 
 .page1 .btn {
-	font-size: 0.4rem;
+	font-size: 0.3rem;
 	color: #fff;
-	border: 0.1rem solid #777;
+	border: 0.06rem solid #777;
 	background-color: #444;
-	padding: 0.3rem 0;
+	padding: 0.2rem 0;
 	display: inline-block;
 	border-radius: 2rem;
-	width: 2.4rem;
+	width: 2rem;
 	text-align: center;
-	margin: 0.5rem 0;
+	margin: 0.35rem 0;
 }
 
 .page1 ul {
-	padding: 3.5rem 0 0 4.5rem;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-end;
+	margin-top: 1rem;
+	margin-right: 0.4rem;
 }
 
-.page2{
+.page2 {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 }
-.page2 .box{
+
+.page2 .back {
+	width: 0.65rem;
+	height: 0.9rem;
+	background-color: #ddd;
+	border-radius: 1rem;
+	line-height: 0.8rem;
+	font-size: 0.6rem;
+	padding-left: 0.25rem;
+	font-weight: bolder;
+	color: #666;
+	margin: 0rem 1rem;
+}
+
+.page2 .box {
 	position: relative;
 	margin: 0 auto;
-	width:5rem;
-	height:5rem;
+	width: 4rem;
+	height: 4rem;
 	background-color: #444444;
-	font-size: 0.5rem;
 	text-align: center;
+	border-radius: 5rem;
+	border: 10px solid #ff9a00;
+	color: #fff;
 }
-#circle{
+
+.page2 h5 {
+	margin: 1rem 0 0.5rem 0;
+	font-size: 0.5rem;
+}
+
+.page2 strong {
+	font-size: 0.7rem;
+}
+
+.page2 i {
+	font-size: 0.45rem;
+}
+
+.page2 .message {
+	color: #FFFFFF;
+	font-size: 0.4rem;
+	text-align: center;
+	margin: 0.7rem 0;
+}
+
+#circle {
 	position: absolute;
-	top:0;
+	top: 0;
 	left: 0;
 }
 
@@ -121,41 +169,47 @@ body {
 .page4 .me {
 	overflow: scroll;
 	width: 5.5rem;
-	height: 7rem;
+	height: 55%;
 	margin: 0.5rem auto;
 	border-radius: 0.2rem;
-	background-color: rgb(124, 124, 124, 0.9);
+	background-color: rgba(124, 124, 124, 0.9);
+	padding: 0.2rem 0;
+    box-sizing: border-box;
+
 }
 
 .page4 .me {
 	margin: 0 auto;
-	height: 1.2rem;
+	height: 1rem;
+	padding-top:0.1rem ;
+	overflow: hidden;
 }
 
 .page4 .back {
-	width: 0.65rem;
-	height: 0.9rem;
-	background-color: #ddd;
-	border-radius: 1rem;
-	line-height: 0.7rem;
-	font-size: 0.7rem;
-	padding-left: 0.25rem;
-	font-weight: bolder;
-	color: #666;
-	margin: 0rem 1rem;
+	width: 0.45rem;
+    height: 0.6rem;
+    background-color: #ddd;
+    border-radius: 1rem;
+    line-height: 0.5rem;
+    font-size: 0.5rem;
+    padding-left: 0.15rem;
+    font-weight: bolder;
+    color: #666;
+    margin: 0rem 1rem;
 }
 
 .page4 .person {
 	text-align: center;
+	line-height: 0.6rem;
 }
 
 .page4 span {
 	font-size: 0.4rem;
 	display: inline-block;
 	color: #ddd;
-	line-height: 1rem;
+	line-height: 0.8rem;
 	vertical-align: middle;
-	transform: scale(1,1);
+	transform: scale(1, 1);
 }
 
 .page4 .name {
