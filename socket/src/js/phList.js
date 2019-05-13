@@ -1,7 +1,7 @@
 const {
 	wrapTo,
 	pageTo
-} = require('./public_page.js');
+} = require('./page.js');
 
 
 module.exports = {

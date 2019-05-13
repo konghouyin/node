@@ -1,4 +1,4 @@
-const {wrapTo,pageTo} = require('./public_page.js');
+const {wrapTo,pageTo} = require('./page.js');
 
 module.exports={
 	out:out

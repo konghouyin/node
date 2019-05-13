@@ -1,5 +1,7 @@
-const nameCallback = require('./name.js');
 var ws; //socket实例
+function close(){
+	ws.close();
+}
 
 function send(obj) {
 	if (ws.readyState != WebSocket.OPEN) {
@@ -13,25 +15,27 @@ function send(obj) {
 function WebSocketTest() {
 	if ("WebSocket" in window) {
 		// 打开一个 web socket
-		ws = new WebSocket("ws://localhost:567");
+		ws = new WebSocket("ws://192.168.137.1:567");
 
 		ws.onopen = function() {
-			// Web Socket 已连接上，使用 send() 方法发送数据
-			console.log("已连接");
+			//只执行一次
 		};
 
 		ws.onmessage = function(evt) {
 			var backObj = JSON.parse(evt.data);
-			if(backObj.type=='login'){
-				nameCallback.success(backObj.data);
+			if (backObj.type == 'login') {
+				nameCallback.socket1(backObj.data);
+			}else if(backObj.type == 'signout'){
+				signoutCallback.socket1();
 			}
 		};
 
 		ws.onclose = function() {
-			alert("您与服务器已断开链接，我们将帮你重连！");
-			setTimeout(function(){
+			alert("您与服务器已断开链接，请重新登录！");
+			setTimeout(function() {
 				WebSocketTest();
-			},2000)
+			}, 2000)
+			page.wrapTo(0);
 		};
 
 		ws.onerror = function() {
@@ -48,5 +52,13 @@ WebSocketTest();
 
 
 module.exports = {
-	send: send
+	send: send,
+	close:close
 }
+
+
+
+//----------回调函数导入----------
+const nameCallback = require('./name.js');
+const page = require('./page.js');
+const signoutCallback = require('./signout.js');

@@ -1,79 +1,99 @@
-const {
-	wrapTo,
-	pageTo
-} = require('./public_page.js');
-const url = "http://localhost:351";
-const hex_md5 = require('./public_md5.js').hex_md5;
-
-module.exports = {
-	success: function(obj) {
-		console.log(obj);
-		if (obj.style == 1) {
-			localStorage.name = obj.name;
-			pageTo(1);
-
-			nameSubmit.removeEventListener('click', a);
-			input1.removeEventListener('click', b);
-			input2.removeEventListener('click', c);
-		} else {
-			alert(obj.msg);
-			document.getElementById('pass').value = "";
-		}
-	},
-	out: function() {
-		wrapTo(0);
-		nameSubmit.addEventListener('click', a);
-		input1.addEventListener('focus', b);
-		input1.addEventListener('focus', c);
-
-		input1.value = '';
-		input2.value = '';
-
-	}
-}
-
+//------------主业务逻辑------------
 var nameSubmit = document.getElementsByClassName('btn')[0];
 var input1 = document.getElementById('name');
 var input2 = document.getElementById('pass');
 
-function a() {
+function start() {
+	input1.value = '';
+	input2.value = '';
+
+	nameSubmit.addEventListener('click', sendCheck);
+	input1.addEventListener('focus', errBack1);
+	input2.addEventListener('focus', errBack2);
+}
+
+function end() {
+	nameSubmit.removeEventListener('click', sendCheck);
+	input1.removeEventListener('focus', errBack1);
+	input2.removeEventListener('focus', errBack2);
+}
+
+function sendCheck() {
 	if (input1.value.length == 0) {
-		input1.placeholder = '昵称不能为空';
-		input1.style.borderBottom = "1px solid #f40";
-		input1.style.borderTop = "1px solid #f40";
+		err1();
 		return;
 	}
 	if (input2.value.length == 0) {
-		input2.placeholder = '密码不能为空';
-		input2.style.borderBottom = "1px solid #f40";
-		input2.style.borderTop = "1px solid #f40";
+		err2();
 		return;
 	}
-
-	if (socket.send({
-			type: "login",
-			data: {
-				name: input1.value,
-				pass: hex_md5(input2.value)
-			}
-		})) {
-		return;
-	}
+	send();
 }
-//姓名localstorage存储并发送存储
+//消息发送前检查
 
-function b() {
+function send() {
+	socket.send({
+		type: "login",
+		data: {
+			name: input1.value,
+			pass: hex_md5(input2.value)
+		}
+	})
+}
+//注册登录请求发送
+
+
+//------------辅助业务逻辑------------
+function err1() {
+	input1.placeholder = '昵称不能为空';
+	input1.style.borderBottom = "1px solid #f40";
+	input1.style.borderTop = "1px solid #f40";
+}
+//昵称填写错误
+
+function err2() {
+	input2.placeholder = '密码不能为空';
+	input2.style.borderBottom = "1px solid #f40";
+	input2.style.borderTop = "1px solid #f40";
+}
+//密码填写错误
+
+function errBack1() {
 	input1.placeholder = '昵  称';
 	input1.style.borderBottom = "1px solid #aaa";
 	input1.style.borderTop = "1px solid #aaa";
 }
-//错误提示恢复
+//昵称错误提示恢复
 
-function c() {
+function errBack2() {
 	input2.placeholder = '密  码';
 	input2.style.borderBottom = "1px solid #aaa";
 	input2.style.borderTop = "1px solid #aaa";
 }
-//错误提示恢复
+//密码错误提示恢复
 
-const socket = require('./public_socket.js');
+
+
+//------------socket回调函数------------
+function socket1(obj) {
+	if (obj.style == 1) {
+		sessionStorage.name = obj.name;//本地存储登录用户名
+		page.pageTo(1);
+	} else {
+		alert(obj.msg);
+		input2.value = "";
+	}
+}
+
+module.exports={
+	start:start,
+	end:end,
+	socket1:socket1
+}
+
+
+//----------回调函数导入----------
+const page = require('./page.js');
+const hex_md5 = require('./public_md5.js').hex_md5;
+const socket = require('./socket.js');
+
